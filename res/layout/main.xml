@@ -12,7 +12,7 @@
     android:id="@+id/textview"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
-    android:text="This is an example text.\nPlease use something like file-manager to open a text-like file.\nテキスト見本です。\nファイルマネージャなどのプログラムを使用して、表示したいファイルを読み込んで下さい。"
+    android:text="This is an example text.\nPlease use something like file-manager to open a text-like file.\nテキスト見本です。\nファイルマネージャなどのアプリを使用して、表示したいファイルを読み込んで下さい。"
     />
 </LinearLayout>
 
