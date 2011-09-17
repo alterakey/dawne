@@ -35,9 +35,8 @@ public class TextLoader
 
 		try
 		{
-			File file = new File(new java.net.URI(androidUri.toString()));
-			Log.d("", file.toURI().toString());
-			Reader reader = new FileReader(file);
+			InputStream in = this.textView.getContext().getContentResolver().openInputStream(this.uri);
+			Reader reader = new InputStreamReader(in);
 
 			StringBuilder builder = new StringBuilder();
 			CharBuffer buffer = CharBuffer.allocate(8192);
@@ -47,14 +46,6 @@ public class TextLoader
 			}
 
 			return builder.toString();
-		}
-		catch (java.net.URISyntaxException e)
-		{
-			return "content URI is not supported yet";
-		}
-		catch (java.io.FileNotFoundException e)
-		{
-			return "URI is not found";
 		}
 		catch (java.io.IOException e)
 		{
