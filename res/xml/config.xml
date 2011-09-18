@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:key="first_preferencescreen">
+    <ListPreference
+            android:key="colortheme"
+            android:title="文字の配色"
+	    android:defaultValue="black"
+	    android:entries="@array/entries_colorthemes"
+	    android:entryValues="@array/entry_values_colorthemes" />
+    <ListPreference
+            android:key="fontsize"
+            android:title="文字のサイズ"
+	    android:defaultValue="14"
+	    android:entries="@array/entries_fontsizes"
+	    android:entryValues="@array/entry_values_fontsizes" />
+</PreferenceScreen> 
