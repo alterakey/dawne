@@ -21,7 +21,7 @@ public class MainActivity extends Activity
         setContentView(R.layout.main);
 
 		this.textView = (TextView)findViewById(R.id.textview);
-		TextViewStyler.create(this.textView).style();
+		TextStyler.create(this.textView).style();
     }
 
 	@Override

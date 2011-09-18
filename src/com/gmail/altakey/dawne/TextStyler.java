@@ -3,18 +3,18 @@ package com.gmail.altakey.dawne;
 import android.widget.TextView;
 import android.util.TypedValue;
 
-public class TextViewStyler
+public class TextStyler
 {
 	private TextView textView;
 
-	public TextViewStyler(TextView textView) 
+	public TextStyler(TextView textView) 
 	{
 		this.textView = textView;
 	}
 
-	public static TextViewStyler create(TextView textView)
+	public static TextStyler create(TextView textView)
 	{
-		return new TextViewStyler(textView);
+		return new TextStyler(textView);
 	}
 
 	public void style() 
