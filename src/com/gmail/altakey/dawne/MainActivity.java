@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.content.SharedPreferences;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
+	protected View rootView;
 	protected TextView textView;
 
     /** Called when the activity is first created. */
@@ -20,9 +23,37 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		this.rootView = findViewById(R.id.view);
 		this.textView = (TextView)findViewById(R.id.textview);
-		TextStyler.create(this.textView).style();
+
+		this.restyle();
     }
+
+	private void restyle()
+	{
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+		String colortheme = pref.getString(ConfigKey.COLORTHEME, "black");
+		int foreground = 0xffffffff;
+		int background = 0xff000000;
+
+		float fontsize = Float.parseFloat(pref.getString(ConfigKey.FONTSIZE, "14"));
+
+		if (colortheme.equals("white"))
+		{
+			foreground = 0xff000000;
+			background = 0xffffffff;
+		}
+
+		TextStyler.create(this.rootView, this.textView, background, foreground, fontsize).style();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		this.restyle();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 

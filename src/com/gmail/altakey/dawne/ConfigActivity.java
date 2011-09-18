@@ -11,9 +11,6 @@ import android.util.Log;
 
 public class ConfigActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-	private static final String KEY_COLORTHEME = "colortheme";
-	private static final String KEY_FONTSIZE = "fontsize";
-
 	private ListPreference colortheme;
 	private ListPreference fontsize;
 
@@ -22,8 +19,8 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.config);
 
-		this.colortheme = (ListPreference)getPreferenceScreen().findPreference(KEY_COLORTHEME);
-        this.fontsize = (ListPreference)getPreferenceScreen().findPreference(KEY_FONTSIZE);
+		this.colortheme = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.COLORTHEME);
+        this.fontsize = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.FONTSIZE);
     }
 
     @Override
@@ -31,8 +28,8 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
         super.onResume();
 
 		SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-		this.updateSummary(sharedPreferences, KEY_COLORTHEME);
-		this.updateSummary(sharedPreferences, KEY_FONTSIZE);
+		this.updateSummary(sharedPreferences, ConfigKey.COLORTHEME);
+		this.updateSummary(sharedPreferences, ConfigKey.FONTSIZE);
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -49,10 +46,10 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 
 	private void updateSummary(SharedPreferences sharedPreferences, String key)
 	{
-        if (key.equals(KEY_COLORTHEME))
+        if (key.equals(ConfigKey.COLORTHEME))
 			this.colortheme.setSummary(this.colortheme.getEntry());
 
-        if (key.equals(KEY_FONTSIZE))
+        if (key.equals(ConfigKey.FONTSIZE))
 			this.fontsize.setSummary(sharedPreferences.getString(key, "") + " sp");
 	}
 }
