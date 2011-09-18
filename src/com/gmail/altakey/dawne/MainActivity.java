@@ -16,11 +16,9 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-		View view = View.inflate(this, R.layout.main, null);
-        setContentView(view);
-
-		TextView textView = (TextView)view.findViewById(R.id.textview);
+		TextView textView = (TextView)findViewById(R.id.textview);
 		TextViewStyler.create(textView).style();
     }
 

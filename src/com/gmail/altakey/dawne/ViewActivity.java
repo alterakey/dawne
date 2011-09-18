@@ -13,13 +13,10 @@ public class ViewActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
 		Intent intent = getIntent();
-
-		View view = View.inflate(this, R.layout.main, null);
-        setContentView(view);
-
-		TextView textView = (TextView)view.findViewById(R.id.textview);
+		TextView textView = (TextView)findViewById(R.id.textview);
 		TextViewStyler.create(textView).style();
 		TextLoader.create(textView, intent.getData()).load();
     }
