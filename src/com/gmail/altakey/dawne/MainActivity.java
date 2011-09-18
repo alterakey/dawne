@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
+	protected TextView textView;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -18,8 +20,8 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-		TextView textView = (TextView)findViewById(R.id.textview);
-		TextViewStyler.create(textView).style();
+		this.textView = (TextView)findViewById(R.id.textview);
+		TextViewStyler.create(this.textView).style();
     }
 
 	@Override
