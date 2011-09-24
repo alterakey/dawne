@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.widget.ScrollView;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class ViewActivity extends MainActivity
 {
@@ -19,6 +21,12 @@ public class ViewActivity extends MainActivity
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event)
 	{
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean scrollerEnabled = pref.getBoolean(ConfigKey.SCROLL_BY_VOLUME_KEYS, false);
+
+		if (!scrollerEnabled)
+			return super.dispatchKeyEvent(event);
+
 		int action = event.getAction();
 		int keyCode = event.getKeyCode();
 

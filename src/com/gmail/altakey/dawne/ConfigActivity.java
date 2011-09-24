@@ -13,6 +13,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 {
 	private ListPreference colortheme;
 	private ListPreference fontsize;
+	private CheckBoxPreference scrollbyvolumekeys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 
 		this.colortheme = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.COLORTHEME);
         this.fontsize = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.FONTSIZE);
+        this.scrollbyvolumekeys = (CheckBoxPreference)getPreferenceScreen().findPreference(ConfigKey.SCROLL_BY_VOLUME_KEYS);
     }
 
     @Override
