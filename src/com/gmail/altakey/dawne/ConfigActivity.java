@@ -13,7 +13,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 {
 	private ListPreference colortheme;
 	private ListPreference fontsize;
-	private CheckBoxPreference scrollbyvolumekeys;
+	private ListPreference scrolllines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 
 		this.colortheme = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.COLORTHEME);
         this.fontsize = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.FONTSIZE);
-        this.scrollbyvolumekeys = (CheckBoxPreference)getPreferenceScreen().findPreference(ConfigKey.SCROLL_BY_VOLUME_KEYS);
+        this.scrolllines = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.SCROLL_LINES);
     }
 
     @Override
@@ -32,6 +32,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 		SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
 		this.updateSummary(sharedPreferences, ConfigKey.COLORTHEME);
 		this.updateSummary(sharedPreferences, ConfigKey.FONTSIZE);
+		this.updateSummary(sharedPreferences, ConfigKey.SCROLL_LINES);
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -53,5 +54,8 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 
         if (key.equals(ConfigKey.FONTSIZE))
 			this.fontsize.setSummary(sharedPreferences.getString(key, "") + " sp");
+
+        if (key.equals(ConfigKey.SCROLL_LINES))
+			this.scrolllines.setSummary(this.scrolllines.getEntry());
 	}
 }
