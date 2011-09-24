@@ -24,24 +24,24 @@ public class ViewActivity extends MainActivity
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean scrollerEnabled = pref.getBoolean(ConfigKey.SCROLL_BY_VOLUME_KEYS, false);
 
-		if (!scrollerEnabled)
-			return super.dispatchKeyEvent(event);
-
-		int action = event.getAction();
-		int keyCode = event.getKeyCode();
-
-		switch (keyCode)
+		if (scrollerEnabled)
 		{
-		case KeyEvent.KEYCODE_VOLUME_UP:
-			if (action == KeyEvent.ACTION_UP)
-				TextPager.create(this.textView, (ScrollView)this.rootView).up();
-			return true;
-		case KeyEvent.KEYCODE_VOLUME_DOWN:
-			if (action == KeyEvent.ACTION_DOWN)
-				TextPager.create(this.textView, (ScrollView)this.rootView).down();
-			return true;
-		default:
-			return super.dispatchKeyEvent(event);
+			int action = event.getAction();
+			int keyCode = event.getKeyCode();
+
+			switch (keyCode)
+			{
+			case KeyEvent.KEYCODE_VOLUME_UP:
+				if (action == KeyEvent.ACTION_UP)
+					TextPager.create(this.textView, (ScrollView)this.rootView).up();
+				return true;
+			case KeyEvent.KEYCODE_VOLUME_DOWN:
+				if (action == KeyEvent.ACTION_DOWN)
+					TextPager.create(this.textView, (ScrollView)this.rootView).down();
+				return true;
+			}
 		}
+
+		return super.dispatchKeyEvent(event);
 	}
 }
