@@ -15,6 +15,10 @@
 	    android:entries="@array/entries_fontsizes"
 	    android:entryValues="@array/entry_values_fontsizes" />
     <CheckBoxPreference
+            android:key="showtitle"
+            android:title="タイトルバーを表示する"
+	    android:defaultValue="on" />
+    <CheckBoxPreference
             android:key="scrollbyvolumekeys"
             android:title="音量キーでスクロール"
 	    android:defaultValue="on" />

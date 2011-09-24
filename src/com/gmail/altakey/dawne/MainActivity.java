@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.view.Window;
 import android.content.SharedPreferences;
 import android.content.Intent;
 import android.preference.PreferenceManager;
@@ -15,12 +16,15 @@ public class MainActivity extends Activity
 {
 	protected View rootView;
 	protected TextView textView;
+	private boolean titleHidden;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		this.setupWindow();
+
         setContentView(R.layout.main);
 
 		this.rootView = findViewById(R.id.view);
@@ -28,6 +32,17 @@ public class MainActivity extends Activity
 
 		this.restyle();
     }
+
+	protected void setupWindow()
+	{
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+		
+		if (hideTitle)
+			this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		this.titleHidden = hideTitle;
+	} 
 
 	private void restyle()
 	{
@@ -52,7 +67,27 @@ public class MainActivity extends Activity
 	public void onResume()
 	{
 		super.onResume();
+
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+
+		if (this.titleHidden != hideTitle)
+		{
+			this.restart();
+			return;
+		}
+		
 		this.restyle();
+	}
+
+	private void restart()
+	{
+		Intent intent = getIntent();
+		overridePendingTransition(0, 0);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		finish();
+		overridePendingTransition(0, 0);
+		startActivity(intent);
 	}
 
 	@Override
