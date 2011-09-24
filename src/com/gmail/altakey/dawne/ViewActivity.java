@@ -35,7 +35,7 @@ public class ViewActivity extends MainActivity
 			switch (keyCode)
 			{
 			case KeyEvent.KEYCODE_VOLUME_UP:
-				if (action == KeyEvent.ACTION_UP)
+				if (action == KeyEvent.ACTION_DOWN)
 					TextPager.create(this.textView, (ScrollView)this.rootView, divisor).up();
 				return true;
 			case KeyEvent.KEYCODE_VOLUME_DOWN:
