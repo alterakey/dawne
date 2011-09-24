@@ -17,11 +17,11 @@
     <CheckBoxPreference
             android:key="showtitle"
             android:title="タイトルバーを表示する"
-	    android:defaultValue="on" />
+	    android:defaultValue="true" />
     <CheckBoxPreference
             android:key="scrollbyvolumekeys"
             android:title="音量キーでスクロール"
-	    android:defaultValue="on" />
+	    android:defaultValue="true" />
     <ListPreference
             android:key="scrolllines"
             android:title="スクロール幅"
