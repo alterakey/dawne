@@ -18,4 +18,10 @@
             android:key="scrollbyvolumekeys"
             android:title="音量キーでスクロール"
 	    android:defaultValue="on" />
+    <ListPreference
+            android:key="scrolllines"
+            android:title="スクロール幅"
+	    android:defaultValue="2"
+	    android:entries="@array/entries_scrolllines"
+	    android:entryValues="@array/entry_values_scrolllines" />
 </PreferenceScreen> 

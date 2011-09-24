@@ -26,6 +26,8 @@ public class ViewActivity extends MainActivity
 
 		if (scrollerEnabled)
 		{
+			int divisor = Integer.parseInt(pref.getString(ConfigKey.SCROLL_LINES, "2"));
+
 			int action = event.getAction();
 			int keyCode = event.getKeyCode();
 
@@ -33,11 +35,11 @@ public class ViewActivity extends MainActivity
 			{
 			case KeyEvent.KEYCODE_VOLUME_UP:
 				if (action == KeyEvent.ACTION_UP)
-					TextPager.create(this.textView, (ScrollView)this.rootView).up();
+					TextPager.create(this.textView, (ScrollView)this.rootView, divisor).up();
 				return true;
 			case KeyEvent.KEYCODE_VOLUME_DOWN:
 				if (action == KeyEvent.ACTION_DOWN)
-					TextPager.create(this.textView, (ScrollView)this.rootView).down();
+					TextPager.create(this.textView, (ScrollView)this.rootView, divisor).down();
 				return true;
 			}
 		}
