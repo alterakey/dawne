@@ -1,12 +1,12 @@
 package com.gmail.altakey.dawne;
 
-import android.util.Log;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.CharBuffer;
+
 import android.net.Uri;
 import android.widget.TextView;
-import java.io.*;
-import java.nio.CharBuffer;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class TextLoader
 {
@@ -31,8 +31,6 @@ public class TextLoader
 	
 	private String read()
 	{
-		android.net.Uri androidUri = this.uri;
-
 		try
 		{
 			InputStream in = this.textView.getContext().getContentResolver().openInputStream(this.uri);

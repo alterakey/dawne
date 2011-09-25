@@ -1,17 +1,15 @@
 package com.gmail.altakey.dawne;
 
-import android.widget.TextView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class TextPager
 {
-	private TextView textView;
 	private ScrollView scroller;
 	private int divisor;
 
 	public TextPager(TextView textView, ScrollView scroller, int divisor)
 	{
-		this.textView = textView;
 		this.scroller = scroller;
 		this.divisor = divisor;
 	}

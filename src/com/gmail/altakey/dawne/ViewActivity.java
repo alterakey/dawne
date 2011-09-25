@@ -1,12 +1,11 @@
 package com.gmail.altakey.dawne;
 
-import android.os.Bundle;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.widget.ScrollView;
-import android.content.SharedPreferences;
-import android.content.Intent;
-import android.preference.PreferenceManager;
 
 public class ViewActivity extends MainActivity
 {

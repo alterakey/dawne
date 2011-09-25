@@ -1,13 +1,9 @@
 package com.gmail.altakey.dawne;
 
-import android.preference.*;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.content.Context;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.view.View;
-import android.util.Log;
+import android.preference.ListPreference;
+import android.preference.PreferenceActivity;
 
 public class ConfigActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
