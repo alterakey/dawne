@@ -31,33 +31,10 @@ public class TextLoader
 	
 	public void load()
 	{
-		this.textView.setText(this.cleverRead());
+		this.textView.setText(this.read());
 	}
 	
 	private String read()
-	{
-		try
-		{
-			InputStream in = this.textView.getContext().getContentResolver().openInputStream(this.uri);
-			Reader reader = new InputStreamReader(in);
-
-			StringBuilder builder = new StringBuilder();
-			CharBuffer buffer = CharBuffer.allocate(8192);
-			while (reader.read(buffer) >= 0)
-			{
-				builder.append(buffer.flip());
-				buffer.clear();
-			}
-
-			return builder.toString();
-		}
-		catch (java.io.IOException e)
-		{
-			return "Cannot load URI";
-		}
-	}
-
-	private String cleverRead()
 	{
 		CharsetDetector det = new CharsetDetector();
 		
