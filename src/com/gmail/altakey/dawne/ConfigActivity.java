@@ -10,6 +10,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 	private ListPreference colortheme;
 	private ListPreference fontsize;
 	private ListPreference scrolllines;
+	private ListPreference charsetpreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 		this.colortheme = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.COLORTHEME);
         this.fontsize = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.FONTSIZE);
         this.scrolllines = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.SCROLL_LINES);
+        this.charsetpreference = (ListPreference)getPreferenceScreen().findPreference(ConfigKey.CHARSET_PREFERENCE);
     }
 
     @Override
@@ -29,6 +31,7 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 		this.updateSummary(sharedPreferences, ConfigKey.COLORTHEME);
 		this.updateSummary(sharedPreferences, ConfigKey.FONTSIZE);
 		this.updateSummary(sharedPreferences, ConfigKey.SCROLL_LINES);
+		this.updateSummary(sharedPreferences, ConfigKey.CHARSET_PREFERENCE);
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -53,5 +56,8 @@ public class ConfigActivity extends PreferenceActivity implements SharedPreferen
 
         if (key.equals(ConfigKey.SCROLL_LINES))
 			this.scrolllines.setSummary(this.scrolllines.getEntry());
+
+        if (key.equals(ConfigKey.CHARSET_PREFERENCE))
+			this.charsetpreference.setSummary(this.charsetpreference.getEntry());
 	}
 }

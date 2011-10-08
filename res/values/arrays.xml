@@ -48,4 +48,20 @@
         <item>2</item>
         <item>4</item>
     </string-array>
+    <string-array name="entries_charsetpreference">
+        <item>特にない</item>
+        <item>日本語</item>
+        <item>中国語</item>
+        <item>中国語（簡体字）</item>
+        <item>中国語（繁体字）</item>
+        <item>韓国語</item>
+    </string-array>
+    <string-array name="entry_values_charsetpreference">
+        <item>all</item>
+        <item>japanese</item>
+        <item>chinese</item>
+        <item>simplified_chinese</item>
+        <item>traditional_chinese</item>
+        <item>korean</item>
+    </string-array>
 </resources>

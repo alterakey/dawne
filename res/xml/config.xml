@@ -28,4 +28,10 @@
 	    android:defaultValue="2"
 	    android:entries="@array/entries_scrolllines"
 	    android:entryValues="@array/entry_values_scrolllines" />
+    <ListPreference
+            android:key="charsetpreference"
+            android:title="主な言語"
+	    android:defaultValue="japanese"
+	    android:entries="@array/entries_charsetpreference"
+	    android:entryValues="@array/entry_values_charsetpreference" />
 </PreferenceScreen> 
