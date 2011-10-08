@@ -5,11 +5,15 @@ import java.util.Arrays;
 import org.mozilla.intl.chardet.*;
 
 import android.util.Log;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 public class CharsetDetector
 {
 	private nsDetector detector;
 	private String charset;
+	private String charsetpreference;
 
 	private boolean isAscii;
 	private boolean detected;
@@ -19,13 +23,14 @@ public class CharsetDetector
 	{
 	}
 
-	public void begin()
+	public void begin(String charsetpreference)
 	{
 		this.charset = null;
+		this.charsetpreference = charsetpreference;
 		this.isAscii = true;
 		this.detected = false;
 
-		this.policy = new JapanesePolicy();
+		this.policy = this.createPolicy();
 
 		this.detector = new nsDetector(this.policy.getDetector());
 		this.detector.Init(new nsICharsetDetectionObserver() {
@@ -35,6 +40,31 @@ public class CharsetDetector
 				Log.d("dawne.CD", String.format("detected %s", charset));
 			}
 		});
+	}
+
+	private LanguagePolicy createPolicy()
+	{
+		String charset = this.charsetpreference;
+
+		if (charset != null)
+		{
+			if (charset.equals("japanese"))
+				return new JapanesePolicy();
+
+			if (charset.equals("chinese"))
+				return new ChinesePolicy();
+
+			if (charset.equals("simplified_chinese"))
+				return new SimplifiedChinesePolicy();
+
+			if (charset.equals("traditional_chinese"))
+				return new TraditionalChinesePolicy();
+
+			if (charset.equals("korean"))
+				return new KoreanPolicy();
+		}
+
+		return new BasePolicy();
 	}
 
 	public void feed(byte[] buffer, int len)
@@ -112,6 +142,38 @@ public class CharsetDetector
 			}
 
 			return "UTF-8";
+		}
+	}
+
+	private class ChinesePolicy extends BasePolicy implements LanguagePolicy
+	{
+		public int getDetector()
+		{
+			return nsPSMDetector.CHINESE;
+		}
+	}
+
+	private class SimplifiedChinesePolicy extends BasePolicy implements LanguagePolicy
+	{
+		public int getDetector()
+		{
+			return nsPSMDetector.SIMPLIFIED_CHINESE;
+		}
+	}
+
+	private class TraditionalChinesePolicy extends BasePolicy implements LanguagePolicy
+	{
+		public int getDetector()
+		{
+			return nsPSMDetector.TRADITIONAL_CHINESE;
+		}
+	}
+
+	private class KoreanPolicy extends BasePolicy implements LanguagePolicy
+	{
+		public int getDetector()
+		{
+			return nsPSMDetector.KOREAN;
 		}
 	}
 }

@@ -15,18 +15,18 @@ public class TextLoader
 	private TextView textView;
 	private Uri uri;
 
-	private String charset;
+	private String charsetpreference;
 	
-	public TextLoader(TextView view, Uri uri)
+	public TextLoader(TextView view, Uri uri, String charsetpreference)
 	{
 		this.textView = view;
 		this.uri = uri;
-		this.charset = null;
+		this.charsetpreference = charsetpreference;
 	}
 
-	public static TextLoader create(TextView view, Uri uri)
+	public static TextLoader create(TextView view, Uri uri, String charsetpreference)
 	{
-		return new TextLoader(view, uri);
+		return new TextLoader(view, uri, charsetpreference);
 	}
 	
 	public void load()
@@ -45,7 +45,7 @@ public class TextLoader
 			byte[] buffer = new byte[1024];
 			ByteArrayOutputStream os = new ByteArrayOutputStream();	
 
-			det.begin();
+			det.begin(this.charsetpreference);
 
 			int read;
 			while ((read = in.read(buffer, 0, buffer.length)) != -1)
