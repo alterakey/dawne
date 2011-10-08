@@ -18,6 +18,8 @@ public class MainActivity extends Activity
 	protected TextView textView;
 	private boolean titleHidden;
 
+	private String currentCharsetpreference;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,11 +39,13 @@ public class MainActivity extends Activity
 	{
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
 		
 		if (hideTitle)
 			this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		this.titleHidden = hideTitle;
+		this.currentCharsetpreference = charsetpreference;
 	} 
 
 	private void restyle()
@@ -70,8 +74,9 @@ public class MainActivity extends Activity
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
 
-		if (this.titleHidden != hideTitle)
+		if (this.titleHidden != hideTitle || this.currentCharsetpreference != charsetpreference)
 		{
 			this.restart();
 			return;
