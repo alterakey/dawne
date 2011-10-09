@@ -4,7 +4,7 @@ README
 Copyright (C) 2011 Takahiro Yoshimura <altakey@gmail.com>
 
 This is a simple text-like file viewer application for the Android
-platform (2.2 or later.)  It is also my learning project.
+platform.  It is also my learning project.
 
 
 0. HOW TO BUILD
