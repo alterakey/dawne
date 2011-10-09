@@ -3,3 +3,4 @@ gen
 *~
 *.rej
 *.orig
+*.keystore
