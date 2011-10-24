@@ -34,4 +34,7 @@
 	    android:defaultValue="japanese"
 	    android:entries="@array/entries_charsetpreference"
 	    android:entryValues="@array/entry_values_charsetpreference" />
+    <Preference
+	android:title="Text Viewer バージョン"
+	android:summary="@string/app_version" />
 </PreferenceScreen> 
