@@ -15,7 +15,7 @@ public class ViewActivity extends MainActivity
         super.onCreate(savedInstanceState);
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
+		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "japanese");
 
 		Intent intent = getIntent();
 		TextLoader.create(this.textView, intent.getData(), charsetpreference).load();
