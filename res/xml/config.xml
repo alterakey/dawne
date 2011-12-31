@@ -4,37 +4,37 @@
         android:key="first_preferencescreen">
     <ListPreference
             android:key="colortheme"
-            android:title="文字の配色"
+            android:title="@string/config_title_colortheme"
 	    android:defaultValue="black"
 	    android:entries="@array/entries_colorthemes"
 	    android:entryValues="@array/entry_values_colorthemes" />
     <ListPreference
             android:key="fontsize"
-            android:title="文字のサイズ"
+            android:title="@string/config_title_fontsize"
 	    android:defaultValue="14"
 	    android:entries="@array/entries_fontsizes"
 	    android:entryValues="@array/entry_values_fontsizes" />
     <CheckBoxPreference
             android:key="showtitle"
-            android:title="タイトルバーを表示する"
+            android:title="@string/config_title_showtitle"
 	    android:defaultValue="true" />
     <CheckBoxPreference
             android:key="scrollbyvolumekeys"
-            android:title="音量キーでスクロール"
+            android:title="@string/config_title_scrollbyvolumekeys"
 	    android:defaultValue="true" />
     <ListPreference
             android:key="scrolllines"
-            android:title="スクロール幅"
+            android:title="@string/config_title_scrolllines"
 	    android:defaultValue="2"
 	    android:entries="@array/entries_scrolllines"
 	    android:entryValues="@array/entry_values_scrolllines" />
     <ListPreference
             android:key="charsetpreference"
-            android:title="主な言語"
+            android:title="@string/config_title_charsetpreference"
 	    android:defaultValue="japanese"
 	    android:entries="@array/entries_charsetpreference"
 	    android:entryValues="@array/entry_values_charsetpreference" />
     <Preference
-	android:title="Text Viewer バージョン"
+	android:title="@string/config_title_version"
 	android:summary="@string/app_version" />
 </PreferenceScreen> 

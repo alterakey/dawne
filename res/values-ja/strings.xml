@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_title_colortheme">文字の配色</string>
+    <string name="config_title_fontsize">文字のサイズ</string>
+    <string name="config_title_showtitle">タイトルバーを表示する</string>
+    <string name="config_title_scrollbyvolumekeys">音量キーでスクロール</string>
+    <string name="config_title_scrolllines">スクロール幅</string>
+    <string name="config_title_charsetpreference">主な言語</string>
+    <string name="config_title_version">Text Viewer バージョン</string>
+</resources>

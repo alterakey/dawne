@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries_colorthemes">
+        <item>黒地に白</item>
+        <item>白地に黒</item>
+    </string-array>
+    <string-array name="entries_scrolllines">
+        <item>1画面</item>
+        <item>1/2画面</item>
+        <item>1/4画面</item>
+    </string-array>
+    <string-array name="entries_charsetpreference">
+        <item>特にない</item>
+        <item>日本語</item>
+        <item>中国語</item>
+        <item>中国語（簡体字）</item>
+        <item>中国語（繁体字）</item>
+        <item>韓国語</item>
+    </string-array>
+</resources>

@@ -2,4 +2,11 @@
 <resources>
     <string name="app_name">Text Viewer</string>
     <string name="app_version">0.1.4</string>
+    <string name="config_title_colortheme">Color theme</string>
+    <string name="config_title_fontsize">Font size</string>
+    <string name="config_title_showtitle">Show title bar</string>
+    <string name="config_title_scrollbyvolumekeys">Scroll by volume keys</string>
+    <string name="config_title_scrolllines">Scroll height</string>
+    <string name="config_title_charsetpreference">Preferred Lang.</string>
+    <string name="config_title_version">Text Viewer Version</string>
 </resources>
