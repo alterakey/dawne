@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Text Viewer</string>
     <string name="app_version">0.1.4</string>
+    <string name="menu_title_main_preferences">Preferences</string>
     <string name="config_title_colortheme">Color theme</string>
     <string name="config_title_fontsize">Font size</string>
     <string name="config_title_showtitle">Show title bar</string>

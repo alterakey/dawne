@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_main_config"
 	  android:icon="@android:drawable/ic_menu_preferences"
-          android:title="設定" />
+          android:title="@string/menu_title_main_preferences" />
 </menu>
