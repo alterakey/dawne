@@ -47,10 +47,7 @@ It is available at: https://gist.github.com/1223663 .
 2. BUGS
 =========
 
- * UI is in Japanese only
-
-   Translation efforts, in any form, will be welcomed.
-
+ * None known.
 
 3. ACKNOWLEDGES
 =================
