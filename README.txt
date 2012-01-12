@@ -1,7 +1,7 @@
 README
 =======
 
-Copyright (C) 2011 Takahiro Yoshimura <altakey@gmail.com>
+Copyright (C) 2011-2012 Takahiro Yoshimura <altakey@gmail.com>
 
 This is a simple text-like file viewer application for the Android
 platform.  It is also my learning project.
