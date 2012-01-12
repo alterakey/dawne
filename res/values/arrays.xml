@@ -22,6 +22,10 @@
         <item>18</item>
         <item>19</item>
         <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
     </string-array>
     <string-array name="entry_values_fontsizes">
         <item>8</item>
@@ -37,6 +41,10 @@
         <item>18</item>
         <item>19</item>
         <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
     </string-array>
     <string-array name="entries_scrolllines">
         <item>1 page</item>
