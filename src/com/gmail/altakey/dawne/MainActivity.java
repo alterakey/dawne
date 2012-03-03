@@ -74,6 +74,7 @@ public class MainActivity extends Activity
 		int background = 0xff000000;
 
 		float fontsize = Float.parseFloat(pref.getString(ConfigKey.FONTSIZE, "14"));
+        boolean useMonospaceFonts = pref.getBoolean(ConfigKey.USE_MONOSPACE_FONTS, false);
 
 		if (colortheme.equals("white"))
 		{
@@ -81,7 +82,7 @@ public class MainActivity extends Activity
 			background = 0xffffffff;
 		}
 
-		TextStyler.create(this.rootView, this.textView, background, foreground, fontsize).style();
+		TextStyler.create(this.rootView, this.textView, background, foreground, fontsize, useMonospaceFonts ? "monospace" : "default").style();
 	}
 
 	@Override

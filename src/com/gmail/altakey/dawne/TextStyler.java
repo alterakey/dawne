@@ -20,6 +20,7 @@ package com.gmail.altakey.dawne;
 import android.view.View;
 import android.widget.TextView;
 import android.util.TypedValue;
+import android.graphics.Typeface;
 
 public class TextStyler
 {
@@ -28,19 +29,21 @@ public class TextStyler
 	private int backgroundColor;
 	private int foregroundColor;
 	private float fontSize;
+    private String fontFace;
 
-	public TextStyler(View rootView, TextView textView, int backgroundColor, int foregroundColor, float fontSize) 
+	public TextStyler(View rootView, TextView textView, int backgroundColor, int foregroundColor, float fontSize, String fontface) 
 	{
 		this.rootView = rootView;
 		this.textView = textView;
 		this.backgroundColor = backgroundColor;
 		this.foregroundColor = foregroundColor;
 		this.fontSize = fontSize;
+        this.fontFace = fontface;
 	}
 
-	public static TextStyler create(View rootView, TextView textView, int backgroundColor, int foregroundColor, float fontSize) 
+	public static TextStyler create(View rootView, TextView textView, int backgroundColor, int foregroundColor, float fontSize, String fontFace) 
 	{
-		return new TextStyler(rootView, textView, backgroundColor, foregroundColor, fontSize);
+		return new TextStyler(rootView, textView, backgroundColor, foregroundColor, fontSize, fontFace);
 	}
 
 	public void style() 
@@ -48,5 +51,13 @@ public class TextStyler
 		this.rootView.setBackgroundColor(this.backgroundColor);
 		this.textView.setTextColor(this.foregroundColor);
 		this.textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, this.fontSize);
+        if (this.fontFace.equals("monospace"))
+            this.textView.setTypeface(Typeface.MONOSPACE);
+        else if (this.fontFace.equals("sans-serif"))
+            this.textView.setTypeface(Typeface.SANS_SERIF);
+        else if (this.fontFace.equals("serif"))
+            this.textView.setTypeface(Typeface.SERIF);
+        else
+            this.textView.setTypeface(Typeface.DEFAULT);
 	}
 }

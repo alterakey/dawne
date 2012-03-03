@@ -6,6 +6,7 @@
     <string name="menu_title_main_preferences">Preferences</string>
     <string name="config_title_colortheme">Color theme</string>
     <string name="config_title_fontsize">Font size</string>
+    <string name="config_title_usemonospacefonts">Use monospace fonts</string>
     <string name="config_title_showtitle">Show title bar</string>
     <string name="config_title_scrollbyvolumekeys">Scroll by volume keys</string>
     <string name="config_title_scrolllines">Scroll height</string>
