@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Text Viewer</string>
-    <string name="app_version">0.1.6</string>
+    <string name="app_version">0.1.7</string>
     <string name="main_inst">This is an example text.\nPlease use something like file-manager to open a text-like file.</string>
     <string name="menu_title_main_preferences">Preferences</string>
     <string name="config_title_colortheme">Color theme</string>
