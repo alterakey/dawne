@@ -36,7 +36,7 @@ It is available at: https://gist.github.com/1223663 .
 
  * 2 color themes
 
-   White-on-black (evergy saving on OLED display, and eye saver under
+   White-on-black (energy saving on OLED display, and eye saver under
    dark conditions) and black-on-white are supported.
  
  * Configurable font size 
