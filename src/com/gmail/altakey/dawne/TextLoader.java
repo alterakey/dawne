@@ -17,67 +17,51 @@
 
 package com.gmail.altakey.dawne;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.CharBuffer;
-
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
+import android.content.Context;
 import android.net.Uri;
-import android.widget.TextView;
 
-public class TextLoader
-{
-	private TextView textView;
-	private Uri uri;
+public class TextLoader {
+    private Context context;
+    private Uri uri;
+    private String charsetpreference;
 
-	private String charsetpreference;
-	
-	public TextLoader(TextView view, Uri uri, String charsetpreference)
-	{
-		this.textView = view;
-		this.uri = uri;
-		this.charsetpreference = charsetpreference;
-	}
+    public TextLoader(Context context, Uri uri, String charsetpreference) {
+        this.context = context;
+        this.uri = uri;
+        this.charsetpreference = charsetpreference;
+    }
 
-	public static TextLoader create(TextView view, Uri uri, String charsetpreference)
-	{
-		return new TextLoader(view, uri, charsetpreference);
-	}
-	
-	public void load()
-	{
-		this.textView.setText(this.read());
-	}
-	
-	private String read()
-	{
-		CharsetDetector det = new CharsetDetector();
-		
-		try
-		{
-			InputStream in = this.textView.getContext().getContentResolver().openInputStream(this.uri);
+    public static TextLoader create(Context context, Uri uri,
+            String charsetpreference) {
+        return new TextLoader(context, uri, charsetpreference);
+    }
 
-			byte[] buffer = new byte[1024];
-			ByteArrayOutputStream os = new ByteArrayOutputStream();	
+    public String read() {
+        CharsetDetector det = new CharsetDetector();
 
-			det.begin(this.charsetpreference);
+        try {
+            InputStream in = this.context.getContentResolver().openInputStream(
+                    this.uri);
 
-			int read;
-			while ((read = in.read(buffer, 0, buffer.length)) != -1)
-			{
-				det.feed(buffer, read);
-				os.write(buffer, 0, read);
-			}
+            byte[] buffer = new byte[1024];
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-			det.end();
+            det.begin(this.charsetpreference);
 
-			return new String(os.toByteArray(), det.getCharset());
-		}
-		catch (java.io.IOException e)
-		{
-			return "Cannot load URI";
-		}
-	}
+            int read;
+            while ((read = in.read(buffer, 0, buffer.length)) != -1) {
+                det.feed(buffer, read);
+                os.write(buffer, 0, read);
+            }
+
+            det.end();
+
+            return new String(os.toByteArray(), det.getCharset());
+        } catch (java.io.IOException e) {
+            return "Cannot load URI";
+        }
+    }
 }
