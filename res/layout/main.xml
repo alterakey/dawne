@@ -1,22 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@android:color/white"
-    >
+    android:layout_height="fill_parent" >
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView  
-    android:id="@+id/textview"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:text="@string/main_inst"
-    />
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/search"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
-</ScrollView>
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dip"
+            android:layout_weight="0.7"
+            android:hint="@string/menu_title_main_search" />
+
+        <ImageButton
+            android:id="@+id/previous"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:src="@drawable/previous" />
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:src="@drawable/next" />
+
+        <ImageButton
+            android:id="@+id/cancel"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:src="@drawable/cancel" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/search" >
+
+        <EditText
+            android:id="@+id/textview"
+            style="?android:attr/textViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:inputType="none"
+            android:longClickable="false"
+            android:text="@string/main_inst" />
+    </ScrollView>
+
+</RelativeLayout>

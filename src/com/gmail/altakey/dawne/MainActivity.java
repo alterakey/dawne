@@ -18,114 +18,228 @@
 package com.gmail.altakey.dawne;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MenuInflater;
-import android.view.Window;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
-public class MainActivity extends Activity
-{
-	protected View rootView;
-	protected TextView textView;
-	private boolean titleHidden;
+public class MainActivity extends Activity {
+    protected View rootView;
+    protected EditText textView;
+    protected View searchBar;
+    protected EditText searchField;
+    private boolean titleHidden;
 
-	private String currentCharsetpreference;
+    private String currentCharsetpreference;
+
+    private final View.OnClickListener cancelButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            showSearchBar(false);
+        }
+    };
+    private final View.OnClickListener prevButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            searchPrevious();
+        }
+    };
+    private final View.OnClickListener nextButtonListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            searchNext();
+        }
+    };
+    private final View.OnTouchListener dummyTouchListener = new View.OnTouchListener() {
+        
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return true;
+        }
+    };
 
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		this.setupWindow();
+        this.setupWindow();
 
         setContentView(R.layout.main);
 
-		this.rootView = findViewById(R.id.view);
-		this.textView = (TextView)findViewById(R.id.textview);
+        this.rootView = findViewById(R.id.view);
+        this.textView = (EditText) findViewById(R.id.textview);
+        this.textView.setOnTouchListener(dummyTouchListener);
+        this.searchBar = findViewById(R.id.search);
+        this.searchField = (EditText) findViewById(R.id.edittext);
 
-		this.restyle();
+        ImageButton cancelButton = (ImageButton) findViewById(R.id.cancel);
+        cancelButton.setOnClickListener(cancelButtonListener);
+        ImageButton prevButton = (ImageButton) findViewById(R.id.previous);
+        prevButton.setOnClickListener(prevButtonListener);
+        ImageButton nextButton = (ImageButton) findViewById(R.id.next);
+        nextButton.setOnClickListener(nextButtonListener);
+
+        this.restyle();
     }
 
-	protected void setupWindow()
-	{
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
-		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
-		
-		if (hideTitle)
-			this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    protected void setupWindow() {
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+        String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE,
+                "all");
 
-		this.titleHidden = hideTitle;
-		this.currentCharsetpreference = charsetpreference;
-	} 
+        if (hideTitle)
+            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-	private void restyle()
-	{
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        this.titleHidden = hideTitle;
+        this.currentCharsetpreference = charsetpreference;
+    }
 
-		String colortheme = pref.getString(ConfigKey.COLORTHEME, "black");
-		int foreground = 0xffffffff;
-		int background = 0xff000000;
+    private void restyle() {
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(this);
 
-		float fontsize = Float.parseFloat(pref.getString(ConfigKey.FONTSIZE, "14"));
-        boolean useMonospaceFonts = pref.getBoolean(ConfigKey.USE_MONOSPACE_FONTS, false);
+        String colortheme = pref.getString(ConfigKey.COLORTHEME, "black");
+        int foreground = 0xffffffff;
+        int background = 0xff000000;
 
-		if (colortheme.equals("white"))
-		{
-			foreground = 0xff000000;
-			background = 0xffffffff;
-		}
+        float fontsize = Float.parseFloat(pref.getString(ConfigKey.FONTSIZE,
+                "14"));
+        boolean useMonospaceFonts = pref.getBoolean(
+                ConfigKey.USE_MONOSPACE_FONTS, false);
 
-		TextStyler.create(this.rootView, this.textView, background, foreground, fontsize, useMonospaceFonts ? "monospace" : "default").style();
-	}
+        if (colortheme.equals("white")) {
+            foreground = 0xff000000;
+            background = 0xffffffff;
+        }
 
-	@Override
-	public void onResume()
-	{
-		super.onResume();
+        TextStyler.create(this.rootView, this.textView, background, foreground,
+                fontsize, useMonospaceFonts ? "monospace" : "default").style();
+    }
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
-		String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
+    @Override
+    public void onResume() {
+        super.onResume();
 
-		if (this.titleHidden != hideTitle || this.currentCharsetpreference != charsetpreference)
-		{
-			this.restart();
-			return;
-		}
-		
-		this.restyle();
-	}
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
+        String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE,
+                "all");
 
-	private void restart()
-	{
-		Intent intent = getIntent();
-		finish();
-		startActivity(intent);
-	}
+        if (this.titleHidden != hideTitle
+                || this.currentCharsetpreference != charsetpreference) {
+            this.restart();
+            return;
+        }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
-	}
+        this.restyle();
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		switch (item.getItemId())
-		{
-		case R.id.menu_main_config:
-			startActivity(new Intent(this, ConfigActivity.class));
-		}
-		return true;
-	}
+    private void restart() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_main_search:
+            showSearchBar(true);
+            break;
+        case R.id.menu_main_config:
+            startActivity(new Intent(this, ConfigActivity.class));
+            break;
+        }
+        return true;
+    }
+
+    void hideSoftKeyboard() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(searchField.getWindowToken(), 0);
+    }
+
+    void showSoftKeyBoard() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                .toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    void showSearchBar(boolean shown) {
+        if (searchBar == null) {
+            throw new IllegalStateException();
+        }
+        if (shown) {
+            searchBar.setVisibility(View.VISIBLE);
+            searchBar.requestFocus();
+            showSoftKeyBoard();
+        } else {
+            hideSoftKeyboard();
+            searchBar.setVisibility(View.GONE);
+        }
+    }
+
+    void searchNext() {
+        final String text = textView.getText().toString().toLowerCase();
+        final String search = searchField.getText().toString().toLowerCase();
+        int selection = textView.getSelectionEnd();
+        int next = text.indexOf(search, selection);
+        if (next > -1) {
+            textView.setSelection(next, next + search.length());
+            if (!textView.isFocused()) {
+                textView.requestFocus();
+            }
+        } else {
+            next = text.indexOf(search);
+            if (next > -1) {
+                textView.setSelection(next, next + search.length());
+                if (!textView.isFocused()) {
+                    textView.requestFocus();
+                }
+            }
+        }
+
+    }
+
+    void searchPrevious() {
+        final String text = textView.getText().toString().toLowerCase();
+        final String search = searchField.getText().toString().toLowerCase();
+        int selection = textView.getSelectionStart() - 1;
+        int previous = text.lastIndexOf(search, selection);
+        if (previous > -1) {
+            textView.setSelection(previous, previous + search.length());
+            if (!textView.isFocused()) {
+                textView.requestFocus();
+            }
+        } else {
+            previous = text.lastIndexOf(search);
+            if (previous > -1) {
+                textView.setSelection(previous, previous + search.length());
+                if (!textView.isFocused()) {
+                    textView.requestFocus();
+                }
+            }
+        }
+    }
 }

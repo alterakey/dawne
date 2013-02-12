@@ -17,180 +17,156 @@
 
 package com.gmail.altakey.dawne;
 
-import java.util.List;
 import java.util.Arrays;
-import org.mozilla.intl.chardet.*;
+import java.util.List;
+
+import org.mozilla.intl.chardet.nsDetector;
+import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
+import org.mozilla.intl.chardet.nsPSMDetector;
 
 import android.util.Log;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 
-public class CharsetDetector
-{
-	private nsDetector detector;
-	private String charset;
-	private String charsetpreference;
+public class CharsetDetector {
+    private nsDetector detector;
+    private String charset;
+    private String charsetpreference;
 
-	private boolean isAscii;
-	private boolean detected;
-	private LanguagePolicy policy;
+    private boolean isAscii;
+    private boolean detected;
+    private LanguagePolicy policy;
 
-	public CharsetDetector()
-	{
-	}
+    public CharsetDetector() {
+    }
 
-	public void begin(String charsetpreference)
-	{
-		this.charset = null;
-		this.charsetpreference = charsetpreference;
-		this.isAscii = true;
-		this.detected = false;
+    public void begin(String charsetpreference) {
+        this.charset = null;
+        this.charsetpreference = charsetpreference;
+        this.isAscii = true;
+        this.detected = false;
 
-		this.policy = this.createPolicy();
+        this.policy = this.createPolicy();
 
-		this.detector = new nsDetector(this.policy.getDetector());
-		this.detector.Init(new nsICharsetDetectionObserver() {
-			public void Notify(String charset)
-			{
-				CharsetDetector.this.charset = charset;
-				Log.d("dawne.CD", String.format("detected %s", charset));
-			}
-		});
-	}
+        this.detector = new nsDetector(this.policy.getDetector());
+        this.detector.Init(new nsICharsetDetectionObserver() {
+            public void Notify(String charset) {
+                CharsetDetector.this.charset = charset;
+                Log.d("dawne.CD", String.format("detected %s", charset));
+            }
+        });
+    }
 
-	private LanguagePolicy createPolicy()
-	{
-		String charset = this.charsetpreference;
+    private LanguagePolicy createPolicy() {
+        String charset = this.charsetpreference;
 
-		if (charset != null)
-		{
-			if (charset.equals("japanese"))
-				return new JapanesePolicy();
+        if (charset != null) {
+            if (charset.equals("japanese"))
+                return new JapanesePolicy();
 
-			if (charset.equals("chinese"))
-				return new ChinesePolicy();
+            if (charset.equals("chinese"))
+                return new ChinesePolicy();
 
-			if (charset.equals("simplified_chinese"))
-				return new SimplifiedChinesePolicy();
+            if (charset.equals("simplified_chinese"))
+                return new SimplifiedChinesePolicy();
 
-			if (charset.equals("traditional_chinese"))
-				return new TraditionalChinesePolicy();
+            if (charset.equals("traditional_chinese"))
+                return new TraditionalChinesePolicy();
 
-			if (charset.equals("korean"))
-				return new KoreanPolicy();
-		}
+            if (charset.equals("korean"))
+                return new KoreanPolicy();
+        }
 
-		return new BasePolicy();
-	}
+        return new BasePolicy();
+    }
 
-	public void feed(byte[] buffer, int len)
-	{
-		if (this.isAscii)
-			this.isAscii = this.detector.isAscii(buffer, len);
-		
-		if (!this.isAscii && !this.detected)
-			this.detected = this.detector.DoIt(buffer, len, false);
-	}
+    public void feed(byte[] buffer, int len) {
+        if (this.isAscii)
+            this.isAscii = this.detector.isAscii(buffer, len);
 
-	public void end()
-	{
-		this.detector.DataEnd();
+        if (!this.isAscii && !this.detected)
+            this.detected = this.detector.DoIt(buffer, len, false);
+    }
 
-		if (this.charset == null)
-		{
-			this.charset = this.policy.guess(this.detector.getProbableCharsets());
-			Log.d("dawne.CD", String.format("guessed as %s", this.charset));
-		}
-	}
+    public void end() {
+        this.detector.DataEnd();
 
-	public String getCharset()
-	{
-		return this.charset;
-	}
+        if (this.charset == null) {
+            this.charset = this.policy.guess(this.detector
+                    .getProbableCharsets());
+            Log.d("dawne.CD", String.format("guessed as %s", this.charset));
+        }
+    }
 
-	public boolean getDetected()
-	{
-		return this.detected;
-	}
+    public String getCharset() {
+        return this.charset;
+    }
 
-	public boolean getGuessed()
-	{
-		return (this.charset != null);
-	}
+    public boolean getDetected() {
+        return this.detected;
+    }
 
-	private interface LanguagePolicy
-	{
-		int getDetector();
-		String guess(String[] probabilities);
-	}
+    public boolean getGuessed() {
+        return (this.charset != null);
+    }
 
+    private interface LanguagePolicy {
+        int getDetector();
 
-	private class BasePolicy implements LanguagePolicy
-	{
-		public int getDetector()
-		{
-			return nsPSMDetector.ALL; 
-		}
+        String guess(String[] probabilities);
+    }
 
-		public String guess(String[] probabilities)
-		{
-			return "UTF-8";
-		}
-	}
+    private class BasePolicy implements LanguagePolicy {
+        public int getDetector() {
+            return nsPSMDetector.ALL;
+        }
 
-	private class JapanesePolicy implements LanguagePolicy
-	{
-		private final String[] preference = {"ISO-2022-JP", "Shift-JIS", "EUC-JP", "UTF-8"};
+        public String guess(String[] probabilities) {
+            return "UTF-8";
+        }
+    }
 
-		public int getDetector()
-		{
-			return nsPSMDetector.JAPANESE; 
-		}
+    private class JapanesePolicy implements LanguagePolicy {
+        private final String[] preference = { "ISO-2022-JP", "Shift-JIS",
+                "EUC-JP", "UTF-8" };
 
-		public String guess(String[] probabilities)
-		{
-			List<String> probs = Arrays.asList(probabilities);
+        public int getDetector() {
+            return nsPSMDetector.JAPANESE;
+        }
 
-			for (String pref : this.preference)
-			{
-				if (probs.contains(pref))
-					return pref;
-			}
+        public String guess(String[] probabilities) {
+            List<String> probs = Arrays.asList(probabilities);
 
-			return "UTF-8";
-		}
-	}
+            for (String pref : this.preference) {
+                if (probs.contains(pref))
+                    return pref;
+            }
 
-	private class ChinesePolicy extends BasePolicy implements LanguagePolicy
-	{
-		public int getDetector()
-		{
-			return nsPSMDetector.CHINESE;
-		}
-	}
+            return "UTF-8";
+        }
+    }
 
-	private class SimplifiedChinesePolicy extends BasePolicy implements LanguagePolicy
-	{
-		public int getDetector()
-		{
-			return nsPSMDetector.SIMPLIFIED_CHINESE;
-		}
-	}
+    private class ChinesePolicy extends BasePolicy implements LanguagePolicy {
+        public int getDetector() {
+            return nsPSMDetector.CHINESE;
+        }
+    }
 
-	private class TraditionalChinesePolicy extends BasePolicy implements LanguagePolicy
-	{
-		public int getDetector()
-		{
-			return nsPSMDetector.TRADITIONAL_CHINESE;
-		}
-	}
+    private class SimplifiedChinesePolicy extends BasePolicy implements
+            LanguagePolicy {
+        public int getDetector() {
+            return nsPSMDetector.SIMPLIFIED_CHINESE;
+        }
+    }
 
-	private class KoreanPolicy extends BasePolicy implements LanguagePolicy
-	{
-		public int getDetector()
-		{
-			return nsPSMDetector.KOREAN;
-		}
-	}
+    private class TraditionalChinesePolicy extends BasePolicy implements
+            LanguagePolicy {
+        public int getDetector() {
+            return nsPSMDetector.TRADITIONAL_CHINESE;
+        }
+    }
+
+    private class KoreanPolicy extends BasePolicy implements LanguagePolicy {
+        public int getDetector() {
+            return nsPSMDetector.KOREAN;
+        }
+    }
 }
