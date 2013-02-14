@@ -43,6 +43,8 @@ public class MainActivity extends Activity {
     protected EditText textView; // for search feature, we need EditText class
     protected View searchBar;
     protected EditText searchField;
+    protected int selectionStart;
+    protected int selectionEnd;
     private boolean titleHidden;
 
     private String currentCharsetpreference;
@@ -81,18 +83,28 @@ public class MainActivity extends Activity {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             // disable alpha-numeric input key from physical keyboard
-            if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_Z) {
+            if (keyCode >= KeyEvent.KEYCODE_0
+                    && keyCode <= KeyEvent.KEYCODE_PLUS) {
                 if (keyCode >= KeyEvent.KEYCODE_DPAD_UP
                         && keyCode <= KeyEvent.KEYCODE_DPAD_RIGHT) {
                     return false;
                 }
                 return true;
             }
-            // disable DEL, BACKSPACE, SPACE, ENTER
-            if (keyCode == KeyEvent.KEYCODE_DEL
-                    || keyCode == KeyEvent.KEYCODE_FORWARD_DEL
-                    || keyCode == KeyEvent.KEYCODE_SPACE
-                    || keyCode == KeyEvent.KEYCODE_ENTER) {
+            // disable DEL
+            if (keyCode == KeyEvent.KEYCODE_FORWARD_DEL) {
+                return true;
+            }
+            return false;
+        }
+    };
+
+    private final View.OnKeyListener searchKeyListener = new View.OnKeyListener() {
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                searchNext();
                 return true;
             }
             return false;
@@ -116,8 +128,10 @@ public class MainActivity extends Activity {
         // this is needed to make EditText won't be changed if user tries
         // to edit the text with physical keyboard
         this.textView.setOnKeyListener(dummyKeyListener);
+        this.textView.setSaveEnabled(false);
         this.searchBar = findViewById(R.id.search);
         this.searchField = (EditText) findViewById(R.id.edittext);
+        this.searchField.setOnKeyListener(searchKeyListener);
 
         ImageButton cancelButton = (ImageButton) findViewById(R.id.cancel);
         cancelButton.setOnClickListener(cancelButtonListener);
@@ -196,6 +210,22 @@ public class MainActivity extends Activity {
         }
 
         this.restyle();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectionStart", selectionStart);
+        outState.putInt("selectionEnd", selectionEnd);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            selectionStart = savedInstanceState.getInt("selectionStart", 0);
+            selectionEnd = savedInstanceState.getInt("selectionEnd", 0);
+        }
     }
 
     private void restart() {
@@ -281,7 +311,8 @@ public class MainActivity extends Activity {
         int next = text.indexOf(search, selection);
         if (next > -1) {
             // EditText class is needed here
-            textView.setSelection(next, next + search.length());
+            textView.setSelection(selectionStart = next, selectionEnd = next
+                    + search.length());
             if (!textView.isFocused()) {
                 textView.setCursorVisible(true);
                 textView.requestFocus();
@@ -289,7 +320,8 @@ public class MainActivity extends Activity {
         } else { // wrap
             next = text.indexOf(search);
             if (next > -1) {
-                textView.setSelection(next, next + search.length());
+                textView.setSelection(selectionStart = next,
+                        selectionEnd = next + search.length());
                 if (!textView.isFocused()) {
                     textView.setCursorVisible(true);
                     textView.requestFocus();
@@ -313,7 +345,8 @@ public class MainActivity extends Activity {
         int selection = textView.getSelectionStart() - 1;
         int previous = text.lastIndexOf(search, selection);
         if (previous > -1) {
-            textView.setSelection(previous, previous + search.length());
+            textView.setSelection(selectionStart = previous,
+                    selectionEnd = previous + search.length());
             if (!textView.isFocused()) {
                 textView.setCursorVisible(true);
                 textView.requestFocus();
@@ -321,7 +354,8 @@ public class MainActivity extends Activity {
         } else { // wrap
             previous = text.lastIndexOf(search);
             if (previous > -1) {
-                textView.setSelection(previous, previous + search.length());
+                textView.setSelection(selectionStart = previous,
+                        selectionEnd = previous + search.length());
                 if (!textView.isFocused()) {
                     textView.setCursorVisible(true);
                     textView.requestFocus();
