@@ -57,16 +57,16 @@ public class ViewActivity extends MainActivity {
             int action = event.getAction();
             int keyCode = event.getKeyCode();
 
+            final TextPager textPager = TextPager.create(this.textView,
+                    (ScrollView) this.rootView, divisor);
             switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (action == KeyEvent.ACTION_DOWN)
-                    TextPager.create(this.textView, (ScrollView) this.rootView,
-                            divisor).up();
+                    textPager.up();
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (action == KeyEvent.ACTION_DOWN)
-                    TextPager.create(this.textView, (ScrollView) this.rootView,
-                            divisor).down();
+                    textPager.down();
                 return true;
             }
         }
@@ -95,6 +95,9 @@ public class ViewActivity extends MainActivity {
         @Override
         protected void onPostExecute(String result) {
             ViewActivity.this.textView.setText(result);
+            ViewActivity.this.textView.setSelection(
+                    ViewActivity.this.selectionStart,
+                    ViewActivity.this.selectionEnd);
             progressDialog.dismiss();
         }
 

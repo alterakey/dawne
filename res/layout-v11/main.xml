@@ -5,32 +5,54 @@
 
     <RelativeLayout
         android:id="@+id/search"
-        style="@android:style/ButtonBar"
+        style="?android:attr/actionBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical"
         android:visibility="gone" >
 
         <ImageButton
             android:id="@+id/cancel"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="48dip"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/cancel" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="1px"
+            android:layout_height="32dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/cancel"
+            android:background="?android:attr/dividerHorizontal" />
 
         <ImageButton
             android:id="@+id/next"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="48dip"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/cancel"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/divider1"
             android:src="@drawable/next" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1px"
+            android:layout_height="32dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/next"
+            android:background="?android:attr/dividerHorizontal" />
 
         <ImageButton
             android:id="@+id/previous"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="48dip"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/next"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/divider2"
             android:src="@drawable/previous" />
 
         <EditText
@@ -38,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_margin="1dip"
             android:layout_toLeftOf="@id/previous"
             android:hint="@string/menu_title_main_search"
@@ -55,6 +78,7 @@
             style="?android:attr/textViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?android:attr/actionBarSize"
             android:background="@null"
             android:clickable="false"
             android:cursorVisible="false"

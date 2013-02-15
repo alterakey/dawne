@@ -42,6 +42,8 @@ It is available at: https://gist.github.com/1223663 .
  * Configurable font size 
 
  * Scrolling with volume keys, with configurable amount
+ 
+ * Words-searching/finding
 
 
 2. BUGS
