@@ -8,8 +8,6 @@
         android:title="@string/menu_title_main_search"/>
     <item
         android:id="@+id/menu_main_config"
-        android:icon="@drawable/action_settings"
-        android:showAsAction="ifRoom|withText"
         android:title="@string/menu_title_main_preferences"/>
 
 </menu>
