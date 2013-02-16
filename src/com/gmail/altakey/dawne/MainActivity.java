@@ -378,7 +378,6 @@ public class MainActivity extends Activity {
                 Selection.setSelection((Spannable) textView.getText(),
                         selectionStart = previous, selectionEnd = previous
                                 + search.length());
-                ;
             } else {
                 // EditText class is needed here
                 ((EditText) textView).setSelection(selectionStart = previous,
