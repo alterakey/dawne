@@ -26,6 +26,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Selection;
+import android.text.Spannable;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,10 +39,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
     protected View rootView;
-    protected EditText textView; // for search feature, we need EditText class
+    protected TextView textView;
     protected View searchBar;
     protected EditText searchField;
     protected int selectionStart;
@@ -121,14 +124,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
 
         this.rootView = findViewById(R.id.view);
-        this.textView = (EditText) findViewById(R.id.textview);
-        // this is needed to make EditText behaves like simple TextView
-        // so the soft keyboard won't appear if user touches the text
-        this.textView.setOnTouchListener(dummyTouchListener);
-        // this is needed to make EditText won't be changed if user tries
-        // to edit the text with physical keyboard
-        this.textView.setOnKeyListener(dummyKeyListener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // In Honeycomb or above, we can set TextView to be selectable
+            this.textView = (TextView) findViewById(R.id.textview);
+            this.textView.setTextIsSelectable(true);
+        } else {
+            // Below Honeycomb we need EditText class
+            this.textView = (EditText) findViewById(R.id.textview);
+            // this is needed to make EditText behaves like simple TextView
+            // so the soft keyboard won't appear if user touches the text
+            this.textView.setOnTouchListener(dummyTouchListener);
+            // this is needed to make EditText won't be changed if user tries
+            // to edit the text with physical keyboard
+            this.textView.setOnKeyListener(dummyKeyListener);
+        }
         this.textView.setSaveEnabled(false);
+
         this.searchBar = findViewById(R.id.search);
         this.searchField = (EditText) findViewById(R.id.edittext);
         this.searchField.setOnKeyListener(searchKeyListener);
@@ -310,24 +321,42 @@ public class MainActivity extends Activity {
         int selection = textView.getSelectionEnd();
         int next = text.indexOf(search, selection);
         if (next > -1) {
-            // EditText class is needed here
-            textView.setSelection(selectionStart = next, selectionEnd = next
-                    + search.length());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                Selection.setSelection((Spannable) textView.getText(),
+                        selectionStart = next,
+                        selectionEnd = next + search.length());
+            } else {
+                // EditText class is needed here
+                ((EditText) textView).setSelection(selectionStart = next,
+                        selectionEnd = next + search.length());
+            }
             if (!textView.isFocused()) {
-                textView.setCursorVisible(true);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    textView.setCursorVisible(true);
+                }
                 textView.requestFocus();
             }
         } else { // wrap
             next = text.indexOf(search);
             if (next > -1) {
-                textView.setSelection(selectionStart = next,
-                        selectionEnd = next + search.length());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    Selection.setSelection((Spannable) textView.getText(),
+                            selectionStart = next,
+                            selectionEnd = next + search.length());
+                } else {
+                    // EditText class is needed here
+                    ((EditText) textView).setSelection(selectionStart = next,
+                            selectionEnd = next + search.length());
+                }
                 if (!textView.isFocused()) {
-                    textView.setCursorVisible(true);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                        textView.setCursorVisible(true);
+                    }
                     textView.requestFocus();
                 }
             }
         }
+        // Before Honeycomb:
         // if text is selected (found), user can actually change it with
         // soft keyboard, so we need to hide the soft keyboard
         if (textView.isFocused()) {
@@ -345,19 +374,39 @@ public class MainActivity extends Activity {
         int selection = textView.getSelectionStart() - 1;
         int previous = text.lastIndexOf(search, selection);
         if (previous > -1) {
-            textView.setSelection(selectionStart = previous,
-                    selectionEnd = previous + search.length());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                Selection.setSelection((Spannable) textView.getText(),
+                        selectionStart = previous, selectionEnd = previous
+                                + search.length());
+                ;
+            } else {
+                // EditText class is needed here
+                ((EditText) textView).setSelection(selectionStart = previous,
+                        selectionEnd = previous + search.length());
+            }
             if (!textView.isFocused()) {
-                textView.setCursorVisible(true);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    textView.setCursorVisible(true);
+                }
                 textView.requestFocus();
             }
         } else { // wrap
             previous = text.lastIndexOf(search);
             if (previous > -1) {
-                textView.setSelection(selectionStart = previous,
-                        selectionEnd = previous + search.length());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    Selection.setSelection((Spannable) textView.getText(),
+                            selectionStart = previous, selectionEnd = previous
+                                    + search.length());
+                } else {
+                    // EditText class is needed here
+                    ((EditText) textView).setSelection(
+                            selectionStart = previous, selectionEnd = previous
+                                    + search.length());
+                }
                 if (!textView.isFocused()) {
-                    textView.setCursorVisible(true);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                        textView.setCursorVisible(true);
+                    }
                     textView.requestFocus();
                 }
             }

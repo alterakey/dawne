@@ -45,6 +45,8 @@ It is available at: https://gist.github.com/1223663 .
  
  * Words-searching/finding
 
+ * Selectable/copyable text (only in Honeycomb or above)
+
 
 2. BUGS
 =========

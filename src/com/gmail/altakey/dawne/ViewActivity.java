@@ -22,9 +22,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Selection;
+import android.text.Spannable;
 import android.view.KeyEvent;
+import android.widget.EditText;
 import android.widget.ScrollView;
 
 public class ViewActivity extends MainActivity {
@@ -95,9 +99,15 @@ public class ViewActivity extends MainActivity {
         @Override
         protected void onPostExecute(String result) {
             ViewActivity.this.textView.setText(result);
-            ViewActivity.this.textView.setSelection(
-                    ViewActivity.this.selectionStart,
-                    ViewActivity.this.selectionEnd);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                Selection.setSelection(
+                        (Spannable) ViewActivity.this.textView.getText(),
+                        selectionStart, selectionEnd);
+            } else {
+                ((EditText) ViewActivity.this.textView).setSelection(
+                        ViewActivity.this.selectionStart,
+                        ViewActivity.this.selectionEnd);
+            }
             progressDialog.dismiss();
         }
 
