@@ -61,3 +61,6 @@ Icon is from the Nuovo theme, is work of SILVESTREHERRERA
 
 Character set detection is done with the jchardet project
 (http://jchardet.sourceforge.net/.)
+
+Word searching, text selection/copy feature is kindly contributed by
+Renjaya Raga Zenta <ragazenta@gmail.com>.
