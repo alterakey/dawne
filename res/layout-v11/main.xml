@@ -77,7 +77,7 @@
             android:id="@+id/textview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?android:attr/actionBarSize"
+            android:paddingTop="?android:attr/actionBarSize"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
