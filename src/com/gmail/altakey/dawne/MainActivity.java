@@ -37,7 +37,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -154,6 +153,7 @@ public class MainActivity extends Activity {
         this.restyle();
     }
 
+    @SuppressLint("InlinedApi")
     protected void setupWindow() {
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -195,11 +195,7 @@ public class MainActivity extends Activity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (titleHidden) {
-                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.FILL_PARENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0, 0, 0, 0);
-                textView.setLayoutParams(params);
+                textView.setPadding(0, 0, 0, 0);
             }
         }
     }
@@ -287,11 +283,7 @@ public class MainActivity extends Activity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 if (!titleHidden) {
                     final ActionBar actionBar = getActionBar();
-                    final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                            FrameLayout.LayoutParams.FILL_PARENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0, 0, 0, 0);
-                    textView.setLayoutParams(params);
+                    textView.setPadding(0, 0, 0, 0);
                     actionBar.hide();
                 }
             }
@@ -300,11 +292,7 @@ public class MainActivity extends Activity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 if (!titleHidden) {
                     final ActionBar actionBar = getActionBar();
-                    final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                            FrameLayout.LayoutParams.FILL_PARENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0, actionBar.getHeight(), 0, 0);
-                    textView.setLayoutParams(params);
+                    textView.setPadding(0, actionBar.getHeight(), 0, 0);
                     actionBar.show();
                 }
             }
