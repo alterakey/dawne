@@ -71,13 +71,13 @@
         android:id="@+id/view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/search" >
+        android:layout_below="@id/search"
+        android:paddingTop="?android:attr/actionBarSize" >
 
         <TextView
             android:id="@+id/textview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="?android:attr/actionBarSize"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"

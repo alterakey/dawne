@@ -195,7 +195,7 @@ public class MainActivity extends Activity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (titleHidden) {
-                textView.setPadding(0, 0, 0, 0);
+                rootView.setPadding(0, 0, 0, 0);
             }
         }
     }
@@ -283,7 +283,7 @@ public class MainActivity extends Activity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 if (!titleHidden) {
                     final ActionBar actionBar = getActionBar();
-                    textView.setPadding(0, 0, 0, 0);
+                    rootView.setPadding(0, 0, 0, 0);
                     actionBar.hide();
                 }
             }
@@ -292,7 +292,7 @@ public class MainActivity extends Activity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 if (!titleHidden) {
                     final ActionBar actionBar = getActionBar();
-                    textView.setPadding(0, actionBar.getHeight(), 0, 0);
+                    rootView.setPadding(0, actionBar.getHeight(), 0, 0);
                     actionBar.show();
                 }
             }
