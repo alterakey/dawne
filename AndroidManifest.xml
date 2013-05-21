@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gmail.altakey.dawne"
-    android:versionCode="9"
+    android:versionCode="10"
     android:versionName="@string/app_version" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="13" />
+        android:targetSdkVersion="17" />
 
     <application
         android:icon="@drawable/icon"
