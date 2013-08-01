@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gmail.altakey.dawne;
+package com.gmail.altakey.dawne.util;
 
 import android.graphics.Typeface;
 import android.util.TypedValue;

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gmail.altakey.dawne;
+package com.gmail.altakey.dawne.util;
 
 public class ConfigKey {
     public static final String COLORTHEME = "colortheme";
@@ -25,4 +25,5 @@ public class ConfigKey {
     public static final String SCROLL_LINES = "scrolllines";
     public static final String SHOW_TITLE = "showtitle";
     public static final String CHARSET_PREFERENCE = "charsetpreference";
+    public static final String RECENT_FILES = "recentfiles";
 }

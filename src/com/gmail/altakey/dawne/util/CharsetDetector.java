@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gmail.altakey.dawne;
+package com.gmail.altakey.dawne.util;
 
 import java.util.Arrays;
 import java.util.List;
