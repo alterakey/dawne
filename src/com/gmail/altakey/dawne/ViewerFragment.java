@@ -271,7 +271,7 @@ public class ViewerFragment extends Fragment {
 
     private void restyle() {
         if (getActivity() == null) {
-            Log.d("ASDF", "Activity null :(");
+            Log.d("dawne.Viewer", "Activity null :(");
             return;
         }
         SharedPreferences pref = PreferenceManager

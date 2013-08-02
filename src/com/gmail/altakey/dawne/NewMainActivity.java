@@ -171,6 +171,9 @@ public class NewMainActivity extends ActionBarActivity implements OnContentTapLi
             case R.id.menu_main_open:
                 browseFile();
                 return true;
+            case R.id.menu_main_clear_recent:
+                clearRecentFiles();
+                return true;
             case R.id.menu_main_config:
                 startActivity(new Intent(this, ConfigActivity.class));
                 return true;
@@ -285,6 +288,14 @@ public class NewMainActivity extends ActionBarActivity implements OnContentTapLi
             e.printStackTrace();
         }
         editor.commit();
+    }
+
+    void clearRecentFiles() {
+        mStackRecentFiles.clear();
+        mDrawerAdapter.notifyDataSetChanged();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        pref.edit().putString(ConfigKey.RECENT_FILES, "").commit();
+
     }
 
     void hideActionBarDelayed() {
