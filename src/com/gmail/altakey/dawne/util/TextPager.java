@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012 Takahiro Yoshimura
+ * Copyright (C) 2011-2013 Takahiro Yoshimura
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gmail.altakey.dawne;
+package com.gmail.altakey.dawne.util;
 
 import android.widget.ScrollView;
 import android.widget.TextView;

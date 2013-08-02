@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012 Takahiro Yoshimura
+ * Copyright (C) 2011-2013 Takahiro Yoshimura
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gmail.altakey.dawne;
+package com.gmail.altakey.dawne.util;
 
 public class ConfigKey {
     public static final String COLORTHEME = "colortheme";
@@ -23,6 +23,6 @@ public class ConfigKey {
     public static final String USE_MONOSPACE_FONTS = "usemonospacefonts";
     public static final String SCROLL_BY_VOLUME_KEYS = "scrollbyvolumekeys";
     public static final String SCROLL_LINES = "scrolllines";
-    public static final String SHOW_TITLE = "showtitle";
     public static final String CHARSET_PREFERENCE = "charsetpreference";
+    public static final String RECENT_FILES = "recentfiles";
 }

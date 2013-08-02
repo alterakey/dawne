@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_inst">テキスト見本です。\nファイルマネージャなどのアプリを使用して、表示したいファイルを読み込んで下さい。</string>
+    <string name="browse_file">テキストファイルをブラウズ</string>
+    <string name="recent_file">最近使ったファイル</string>
     <string name="menu_title_main_preferences">設定</string>
-    <string name="menu_title_main_search">探す</string>
+    <string name="menu_title_main_open">オープンファイル</string>
+    <string name="menu_title_main_clear_recent">明確な最近のファイル</string>
+    <string name="menu_title_viewer_search">探す</string>
     <string name="config_title_colortheme">文字の配色</string>
     <string name="config_title_fontsize">文字のサイズ</string>
     <string name="config_title_usemonospacefonts">等幅フォントを使用する</string>
-    <string name="config_title_showtitle">タイトルバーを表示する</string>
     <string name="config_title_scrollbyvolumekeys">音量キーでスクロール</string>
     <string name="config_title_scrolllines">スクロール幅</string>
     <string name="config_title_charsetpreference">主な言語</string>

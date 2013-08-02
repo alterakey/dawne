@@ -3,6 +3,8 @@
     <string-array name="entries_colorthemes">
         <item>黒地に白</item>
         <item>白地に黒</item>
+        <item>Solarizedさ暗い</item>
+        <item>Solarizedさ光</item>
     </string-array>
     <string-array name="entries_scrolllines">
         <item>1画面</item>

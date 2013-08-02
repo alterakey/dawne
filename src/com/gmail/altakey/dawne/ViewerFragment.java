@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012 Takahiro Yoshimura
+ * Copyright (C) 2011-2013 Takahiro Yoshimura, Renjaya Raga Zenta
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,38 +18,51 @@
 package com.gmail.altakey.dawne;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Selection;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
-    protected View rootView;
-    protected TextView textView;
-    protected View searchBar;
-    protected EditText searchField;
-    protected int selectionStart;
-    protected int selectionEnd;
-    private boolean titleHidden;
+import com.gmail.altakey.dawne.util.ConfigKey;
+import com.gmail.altakey.dawne.util.TextLoader;
+import com.gmail.altakey.dawne.util.TextPager;
+import com.gmail.altakey.dawne.util.TextStyler;
 
-    private String currentCharsetpreference;
+public class ViewerFragment extends Fragment {
+
+    private View scrollView;
+    private TextView textView;
+    private View searchBar;
+    private EditText searchField;
+    private int selectionStart;
+    private int selectionEnd;
+    private Uri mUri;
+    private OnContentTapListener mCallback;
+    private boolean isSearching = false;
+    private String currentCharsetPreference;
 
     private final View.OnClickListener cancelButtonListener = new View.OnClickListener() {
 
@@ -72,11 +85,25 @@ public class MainActivity extends Activity {
             searchNext();
         }
     };
+    private final View.OnTouchListener contentTouchListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (!isSearching) {
+                mCallback.onContentTap();
+            }
+            // call super listener (for selecting text)
+            return false;
+        }
+    };
     private final View.OnTouchListener dummyTouchListener = new View.OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            // do nothing
+            if (!isSearching) {
+                mCallback.onContentTap();
+            }
+            // ignore super listener
             return true;
         }
     };
@@ -113,68 +140,142 @@ public class MainActivity extends Activity {
         }
     };
 
-    /** Called when the activity is first created. */
-    @SuppressLint("NewApi")
+    public ViewerFragment() {
+    }
+
+    public static ViewerFragment newInstance(String uriString) {
+        final ViewerFragment f = new ViewerFragment();
+        final Bundle args = new Bundle(1);
+        args.putString("uri", uriString);
+        f.setArguments(args);
+        return f;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setupWindow();
-
-        setContentView(R.layout.main);
-
-        this.rootView = findViewById(R.id.view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // In Honeycomb or above, we can set TextView to be selectable
-            this.textView = (TextView) findViewById(R.id.textview);
-            this.textView.setTextIsSelectable(true);
-        } else {
-            // Below Honeycomb we need EditText class
-            this.textView = (EditText) findViewById(R.id.textview);
-            // this is needed to make EditText behaves like simple TextView
-            // so the soft keyboard won't appear if user touches the text
-            this.textView.setOnTouchListener(dummyTouchListener);
-            // this is needed to make EditText won't be changed if user tries
-            // to edit the text with physical keyboard
-            this.textView.setOnKeyListener(dummyKeyListener);
-        }
-        this.textView.setSaveEnabled(false);
-
-        this.searchBar = findViewById(R.id.search);
-        this.searchField = (EditText) findViewById(R.id.edittext);
-        this.searchField.setOnKeyListener(searchKeyListener);
-
-        ImageButton cancelButton = (ImageButton) findViewById(R.id.cancel);
-        cancelButton.setOnClickListener(cancelButtonListener);
-        ImageButton prevButton = (ImageButton) findViewById(R.id.previous);
-        prevButton.setOnClickListener(prevButtonListener);
-        ImageButton nextButton = (ImageButton) findViewById(R.id.next);
-        nextButton.setOnClickListener(nextButtonListener);
-
-        this.restyle();
+        mUri = getArguments() != null ? Uri.parse(getArguments().getString("uri")) : null;
+        setHasOptionsMenu(true);
     }
 
-    @SuppressLint("InlinedApi")
-    protected void setupWindow() {
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
-        String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE,
-                "all");
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mCallback = (OnContentTapListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnContentClickListener");
+        }
+    }
 
+    @SuppressLint("NewApi")
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.viewer, container, false);
+        scrollView = rootView.findViewById(R.id.view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            this.requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+            // In Honeycomb or above, we can set TextView to be selectable
+            textView = (TextView) rootView.findViewById(R.id.textview);
+            textView.setTextIsSelectable(true);
+            textView.setOnTouchListener(contentTouchListener);
+        } else {
+            // Below Honeycomb we need EditText class
+            textView = (EditText) rootView.findViewById(R.id.textview);
+            // this is needed to make EditText behaves like simple TextView
+            // so the soft keyboard won't appear if user touches the text
+            textView.setOnTouchListener(dummyTouchListener);
+            // this is needed to make EditText won't be changed if user tries
+            // to edit the text with physical keyboard
+            textView.setOnKeyListener(dummyKeyListener);
         }
-        if (hideTitle) {
-            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
+        textView.setSaveEnabled(false);
+        searchBar = rootView.findViewById(R.id.search);
+        searchField = (EditText) rootView.findViewById(R.id.edittext);
+        searchField.setOnKeyListener(searchKeyListener);
 
-        this.titleHidden = hideTitle;
-        this.currentCharsetpreference = charsetpreference;
+        ImageButton cancelButton = (ImageButton) rootView.findViewById(R.id.cancel);
+        cancelButton.setOnClickListener(cancelButtonListener);
+        ImageButton prevButton = (ImageButton) rootView.findViewById(R.id.previous);
+        prevButton.setOnClickListener(prevButtonListener);
+        ImageButton nextButton = (ImageButton) rootView.findViewById(R.id.next);
+        nextButton.setOnClickListener(nextButtonListener);
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String charsetPreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
+        currentCharsetPreference = charsetPreference;
+        if (savedInstanceState != null) {
+            selectionStart = savedInstanceState.getInt("selectionStart", 0);
+            selectionEnd = savedInstanceState.getInt("selectionEnd", 0);
+        }
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("");
+        loadText(charsetPreference);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String charsetPreference = pref.getString(ConfigKey.CHARSET_PREFERENCE, "all");
+        if (!currentCharsetPreference.equals(charsetPreference)) {
+            loadText(charsetPreference);
+            currentCharsetPreference = charsetPreference;
+        }
+        ((NewMainActivity) getActivity()).hideActionBarDelayed();
+        restyle();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectionStart", selectionStart);
+        outState.putInt("selectionEnd", selectionEnd);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.viewer, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_viewer_search:
+                showSearchBar(true);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_viewer_search).setVisible(
+                !((NewMainActivity) getActivity()).isDrawerOpen());
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    private void loadText(String charsetPreference) {
+        final TextLoaderParam param = new TextLoaderParam();
+        param.context = getActivity().getApplicationContext();
+        param.uri = mUri;
+        param.charset = charsetPreference;
+        new LoadTextTask().execute(param);
     }
 
     private void restyle() {
+        if (getActivity() == null) {
+            Log.d("dawne.Viewer", "Activity null :(");
+            return;
+        }
         SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(this);
+                .getDefaultSharedPreferences(getActivity());
 
         String colortheme = pref.getString(ConfigKey.COLORTHEME, "black");
         int foreground = 0xffffffff;
@@ -188,91 +289,30 @@ public class MainActivity extends Activity {
         if (colortheme.equals("white")) {
             foreground = 0xff000000;
             background = 0xffffffff;
+        } else if (colortheme.equals("solarized_dark")) {
+            foreground = 0xff839496;
+            background = 0xff002b36;
+        } else if (colortheme.equals("solarized_light")) {
+            foreground = 0xff657b83;
+            background = 0xfffdf6e3;
         }
 
-        TextStyler.create(this.rootView, this.textView, background, foreground,
+        TextStyler.create(scrollView, textView, background, foreground,
                 fontsize, useMonospaceFonts ? "monospace" : "default").style();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (titleHidden) {
-                rootView.setPadding(0, 0, 0, 0);
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        boolean hideTitle = !pref.getBoolean(ConfigKey.SHOW_TITLE, true);
-        String charsetpreference = pref.getString(ConfigKey.CHARSET_PREFERENCE,
-                "all");
-
-        if (this.titleHidden != hideTitle
-                || this.currentCharsetpreference != charsetpreference) {
-            this.restart();
-            return;
-        }
-
-        this.restyle();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("selectionStart", selectionStart);
-        outState.putInt("selectionEnd", selectionEnd);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState != null) {
-            selectionStart = savedInstanceState.getInt("selectionStart", 0);
-            selectionEnd = savedInstanceState.getInt("selectionEnd", 0);
-        }
-    }
-
-    private void restart() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_main_search:
-            showSearchBar(true);
-            break;
-        case R.id.menu_main_config:
-            startActivity(new Intent(this, ConfigActivity.class));
-            break;
-        }
-        return true;
     }
 
     void hideSoftKeyboard() {
-        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(searchField.getWindowToken(), 0);
     }
 
     void showSoftKeyBoard() {
-        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                 .toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-    @SuppressLint("NewApi")
     void showSearchBar(boolean shown) {
+        isSearching = shown;
         if (searchBar == null) {
             throw new IllegalStateException();
         }
@@ -280,26 +320,20 @@ public class MainActivity extends Activity {
             searchBar.setVisibility(View.VISIBLE);
             searchBar.requestFocus();
             showSoftKeyBoard();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                if (!titleHidden) {
-                    final ActionBar actionBar = getActionBar();
-                    rootView.setPadding(0, 0, 0, 0);
-                    actionBar.hide();
-                }
-            }
+            ((ActionBarActivity) getActivity()).getSupportActionBar().hide();
         } else {
             hideSoftKeyboard();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                if (!titleHidden) {
-                    final ActionBar actionBar = getActionBar();
-                    rootView.setPadding(0, actionBar.getHeight(), 0, 0);
-                    actionBar.show();
-                }
-            }
+            ((ActionBarActivity) getActivity()).getSupportActionBar().show();
+            ((NewMainActivity) getActivity()).hideActionBarDelayed();
             searchBar.setVisibility(View.GONE);
         }
     }
 
+    boolean isSearching() {
+        return isSearching;
+    }
+
+    @SuppressLint("DefaultLocale")
     void searchNext() {
         final String text = textView.getText().toString().toLowerCase();
         final String search = searchField.getText().toString().toLowerCase();
@@ -353,6 +387,7 @@ public class MainActivity extends Activity {
 
     }
 
+    @SuppressLint("DefaultLocale")
     void searchPrevious() {
         final String text = textView.getText().toString().toLowerCase();
         final String search = searchField.getText().toString().toLowerCase();
@@ -401,5 +436,56 @@ public class MainActivity extends Activity {
         if (textView.isFocused()) {
             hideSoftKeyboard();
         }
+    }
+
+    private class LoadTextTask extends AsyncTask<TextLoaderParam, Void, String> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            textView.setText("");
+            progressDialog = ProgressDialog.show(getActivity(), "",
+                    "Loading ...", true);
+        }
+
+        @Override
+        protected String doInBackground(TextLoaderParam... params) {
+            final TextLoaderParam param = params[0];
+            return TextLoader.create(param.context, param.uri, param.charset)
+                    .read();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            restyle();
+            textView.setText(result);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                Selection.setSelection(
+                        (Spannable) textView.getText(), selectionStart, selectionEnd);
+            } else {
+                ((EditText) textView).setSelection(selectionStart, selectionEnd);
+            }
+            progressDialog.dismiss();
+        }
+
+    }
+
+    static class TextLoaderParam {
+        Context context;
+        Uri uri;
+        String charset;
+    }
+
+    public void onVolumeKeyUp(int divisor) {
+        (TextPager.create(textView, (ScrollView) scrollView, divisor)).up();
+    }
+
+    public void onVolumeKeyDown(int divisor) {
+        (TextPager.create(textView, (ScrollView) scrollView, divisor)).down();
+    }
+
+    public interface OnContentTapListener {
+        public void onContentTap();
     }
 }

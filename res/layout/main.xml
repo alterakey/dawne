@@ -1,66 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:id="@+id/search"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:visibility="gone" >
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <ImageButton
-            android:id="@+id/cancel"
-            android:layout_width="48dip"
+        <Button
+            android:id="@+id/buttonBrowse"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/cancel" />
+            android:layout_gravity="center"
+            android:text="@string/browse_file" >
+        </Button>
+    </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/next"
-            android:layout_width="48dip"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/cancel"
-            android:src="@drawable/next" />
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#111111"
+        android:choiceMode="singleChoice"
+        android:paddingTop="?attr/actionBarSize" />
 
-        <ImageButton
-            android:id="@+id/previous"
-            android:layout_width="48dip"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/next"
-            android:src="@drawable/previous" />
-
-        <EditText
-            android:id="@+id/edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="1dip"
-            android:layout_toLeftOf="@id/previous"
-            android:hint="@string/menu_title_main_search"
-            android:singleLine="true" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/search" >
-
-        <EditText
-            android:id="@+id/textview"
-            style="?android:attr/textViewStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:inputType="none"
-            android:longClickable="false"
-            android:text="@string/main_inst" />
-    </ScrollView>
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

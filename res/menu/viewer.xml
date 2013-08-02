@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:com.gmail.altakey.dawne="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/menu_viewer_search"
+        android:icon="@drawable/action_search"
+        android:title="@string/menu_title_viewer_search"
+        com.gmail.altakey.dawne:showAsAction="ifRoom"/>
+
+</menu>

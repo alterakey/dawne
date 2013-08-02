@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" >
+
+        <EditText
+            android:id="@+id/textview"
+            style="?android:attr/textViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:inputType="none"
+            android:longClickable="false"
+            android:paddingTop="?attr/actionBarSize"
+            android:text="@string/main_inst" />
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/search"
-        style="?android:attr/actionBarStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        style="?attr/actionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
+        android:background="#99000000"
         android:gravity="center_vertical"
         android:visibility="gone" >
 
         <ImageButton
             android:id="@+id/cancel"
-            style="?android:attr/borderlessButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:layout_width="48dip"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
             android:src="@drawable/cancel" />
 
         <View
@@ -27,15 +49,16 @@
             android:layout_height="32dip"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/cancel"
-            android:background="?android:attr/dividerHorizontal" />
+            android:background="?attr/dividerHorizontal" />
 
         <ImageButton
             android:id="@+id/next"
-            style="?android:attr/borderlessButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:layout_width="48dip"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/divider1"
+            android:background="?attr/selectableItemBackground"
             android:src="@drawable/next" />
 
         <View
@@ -44,45 +67,32 @@
             android:layout_height="32dip"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/next"
-            android:background="?android:attr/dividerHorizontal" />
+            android:background="?attr/dividerHorizontal" />
 
         <ImageButton
             android:id="@+id/previous"
-            style="?android:attr/borderlessButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:layout_width="48dip"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/divider2"
+            android:background="?attr/selectableItemBackground"
             android:src="@drawable/previous" />
 
         <EditText
             android:id="@+id/edittext"
+            style="?attr/searchViewTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="1dip"
             android:layout_toLeftOf="@id/previous"
-            android:hint="@string/menu_title_main_search"
-            android:singleLine="true" />
+            android:background="@drawable/abc_textfield_searchview_holo_dark"
+            android:hint="@string/menu_title_viewer_search"
+            android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+            android:singleLine="true"
+            android:textColor="#fff" />
     </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/search"
-        android:paddingTop="?android:attr/actionBarSize" >
-
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:longClickable="true"
-            android:text="@string/main_inst" />
-    </ScrollView>
 
 </RelativeLayout>

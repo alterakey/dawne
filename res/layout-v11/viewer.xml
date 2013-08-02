@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:longClickable="true"
+            android:paddingTop="?attr/actionBarSize"
+            android:text="@string/main_inst" />
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/search"
+        style="?attr/actionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="#99000000"
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:id="@+id/cancel"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cancel" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="1px"
+            android:layout_height="32dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/cancel"
+            android:background="?attr/dividerHorizontal" />
+
+        <ImageButton
+            android:id="@+id/next"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/divider1"
+            android:src="@drawable/next" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1px"
+            android:layout_height="32dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/next"
+            android:background="?attr/dividerHorizontal" />
+
+        <ImageButton
+            android:id="@+id/previous"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/divider2"
+            android:src="@drawable/previous" />
+
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="1dip"
+            android:layout_toLeftOf="@id/previous"
+            android:hint="@string/menu_title_viewer_search"
+            android:singleLine="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

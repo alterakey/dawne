@@ -3,10 +3,14 @@
     <string-array name="entries_colorthemes">
         <item>White on black</item>
         <item>Black on white</item>
+        <item>Solarized Dark</item>
+        <item>Solarized Light</item>
     </string-array>
     <string-array name="entry_values_colorthemes">
         <item>black</item>
         <item>white</item>
+        <item>solarized_dark</item>
+        <item>solarized_light</item>
     </string-array>
     <string-array name="entries_fontsizes">
         <item>8</item>
