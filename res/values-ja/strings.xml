@@ -4,7 +4,8 @@
     <string name="browse_file">テキストファイルをブラウズ</string>
     <string name="recent_file">最近使ったファイル</string>
     <string name="menu_title_main_preferences">設定</string>
-    <string name="menu_title_main_open">オープンファイル&#8230;</string>
+    <string name="menu_title_main_open">オープンファイル</string>
+    <string name="menu_title_main_clear_recent">明確な最近のファイル</string>
     <string name="menu_title_viewer_search">探す</string>
     <string name="config_title_colortheme">文字の配色</string>
     <string name="config_title_fontsize">文字のサイズ</string>

@@ -5,6 +5,9 @@
         android:id="@+id/menu_main_open"
         android:title="@string/menu_title_main_open"/>
     <item
+        android:id="@+id/menu_main_clear_recent"
+        android:title="@string/menu_title_main_clear_recent"/>
+    <item
         android:id="@+id/menu_main_config"
         android:title="@string/menu_title_main_preferences"/>
 

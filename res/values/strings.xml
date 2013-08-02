@@ -6,7 +6,8 @@
     <string name="browse_file">Browse text files</string>
     <string name="recent_file">Recent files</string>
     <string name="menu_title_main_preferences">Settings</string>
-    <string name="menu_title_main_open">Open File&#8230;</string>
+    <string name="menu_title_main_open">Open File</string>
+    <string name="menu_title_main_clear_recent">Clear Recent Files</string>
     <string name="menu_title_viewer_search">Search</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
