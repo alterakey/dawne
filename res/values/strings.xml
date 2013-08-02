@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Text Viewer</string>
-    <string name="app_version">0.1.8</string>
+    <string name="app_version">0.2.0</string>
     <string name="main_inst">This is an example text.\nPlease use something like file-manager to open a text-like file.</string>
-    <string name="menu_title_main_preferences">Preferences</string>
-    <string name="menu_title_main_search">Search</string>
+    <string name="browse_file">Browse text files</string>
+    <string name="recent_file">Recent files</string>
+    <string name="menu_title_main_preferences">Settings</string>
+    <string name="menu_title_main_open">Open File&#8230;</string>
+    <string name="menu_title_viewer_search">Search</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="config_title_colortheme">Color theme</string>
     <string name="config_title_fontsize">Font size</string>
     <string name="config_title_usemonospacefonts">Use monospace fonts</string>

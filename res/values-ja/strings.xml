@@ -2,7 +2,7 @@
 <resources>
     <string name="main_inst">テキスト見本です。\nファイルマネージャなどのアプリを使用して、表示したいファイルを読み込んで下さい。</string>
     <string name="menu_title_main_preferences">設定</string>
-    <string name="menu_title_main_search">探す</string>
+    <string name="menu_title_viewer_search">探す</string>
     <string name="config_title_colortheme">文字の配色</string>
     <string name="config_title_fontsize">文字のサイズ</string>
     <string name="config_title_usemonospacefonts">等幅フォントを使用する</string>
