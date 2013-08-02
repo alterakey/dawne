@@ -1,7 +1,7 @@
 README
 =======
 
-Copyright (C) 2011-2012 Takahiro Yoshimura <altakey@gmail.com>
+Copyright (C) 2011-2013 Takahiro Yoshimura <altakey@gmail.com>
 
 This is a simple text-like file viewer application for the Android
 platform.  It is also my learning project.
@@ -34,10 +34,11 @@ It is available at: https://gist.github.com/1223663 .
 
    Thanks to the jchardet project (http://jchardet.sourceforge.net/).
 
- * 2 color themes
+ * 4 color themes
 
    White-on-black (energy saving on OLED display, and eye saver under
    dark conditions) and black-on-white are supported.
+   Update: Solarized Color theme (dark & light)
  
  * Configurable font size 
 
@@ -46,6 +47,10 @@ It is available at: https://gist.github.com/1223663 .
  * Words-searching/finding
 
  * Selectable/copyable text (only in Honeycomb or above)
+ 
+ * Now, it can choose text file from installed file manager
+ 
+ * Recent files
 
 
 2. BUGS
@@ -64,3 +69,8 @@ Character set detection is done with the jchardet project
 
 Word searching, text selection/copy feature is kindly contributed by
 Renjaya Raga Zenta <ragazenta@gmail.com>.
+
+Solarized Color: Precision colors for machines and people
+(http://ethanschoonover.com/solarized)
+
+Saving recent files use ObjectSerializer (https://github.com/apache/pig)
