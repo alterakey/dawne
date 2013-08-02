@@ -163,6 +163,12 @@ public class NewMainActivity extends ActionBarActivity implements OnContentTapLi
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_main_clear_recent).setEnabled(!mDrawerAdapter.isEmpty());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -295,7 +301,7 @@ public class NewMainActivity extends ActionBarActivity implements OnContentTapLi
         mDrawerAdapter.notifyDataSetChanged();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.edit().putString(ConfigKey.RECENT_FILES, "").commit();
-
+        supportInvalidateOptionsMenu();
     }
 
     void hideActionBarDelayed() {
