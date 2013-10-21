@@ -40,5 +40,7 @@
 	    android:entryValues="@array/entry_values_charsetpreference" />
     <Preference
 	android:title="@string/config_title_version"
-	android:summary="@string/app_version" />
+	android:summary="@string/app_version"
+	android:enabled="false"
+	/>
 </PreferenceScreen> 
