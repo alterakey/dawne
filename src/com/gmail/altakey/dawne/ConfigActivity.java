@@ -25,7 +25,7 @@ import android.preference.PreferenceActivity;
 public class ConfigActivity extends PreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
     private ListPreference colortheme;
-    private ListPreference fontsize;
+    private NumberPickerPreference fontsize;
     private ListPreference scrolllines;
     private ListPreference charsetpreference;
 
@@ -36,8 +36,8 @@ public class ConfigActivity extends PreferenceActivity implements
 
         this.colortheme = (ListPreference) getPreferenceScreen()
                 .findPreference(ConfigKey.COLORTHEME);
-        this.fontsize = (ListPreference) getPreferenceScreen().findPreference(
-                ConfigKey.FONTSIZE);
+        this.fontsize = (NumberPickerPreference) getPreferenceScreen()
+                .findPreference(ConfigKey.FONTSIZE);
         this.scrolllines = (ListPreference) getPreferenceScreen()
                 .findPreference(ConfigKey.SCROLL_LINES);
         this.charsetpreference = (ListPreference) getPreferenceScreen()
@@ -75,7 +75,7 @@ public class ConfigActivity extends PreferenceActivity implements
             this.colortheme.setSummary(this.colortheme.getEntry());
 
         if (key.equals(ConfigKey.FONTSIZE))
-            this.fontsize.setSummary(sharedPreferences.getString(key, "")
+            this.fontsize.setSummary(sharedPreferences.getString(key, "14")
                     + " sp");
 
         if (key.equals(ConfigKey.SCROLL_LINES))

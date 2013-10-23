@@ -8,12 +8,12 @@
 	    android:defaultValue="black"
 	    android:entries="@array/entries_colorthemes"
 	    android:entryValues="@array/entry_values_colorthemes" />
-    <ListPreference
-            android:key="fontsize"
-            android:title="@string/config_title_fontsize"
-	    android:defaultValue="14"
-	    android:entries="@array/entries_fontsizes"
-	    android:entryValues="@array/entry_values_fontsizes" />
+    <com.gmail.altakey.dawne.NumberPickerPreference
+        android:key="fontsize"
+        android:title="@string/config_title_fontsize"
+        android:defaultValue="14"
+        android:max="48"
+        min="8" />
     <CheckBoxPreference
             android:key="usemonospacefonts"
             android:title="@string/config_title_usemonospacefonts"
