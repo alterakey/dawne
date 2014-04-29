@@ -4,11 +4,11 @@
         <item>White on black</item>
         <item>Black on white</item>
     </string-array>
-    <string-array name="entry_values_colorthemes">
+    <string-array name="entry_values_colorthemes" translatable="false">
         <item>black</item>
         <item>white</item>
     </string-array>
-    <string-array name="entries_fontsizes">
+    <string-array name="entries_fontsizes" translatable="false">
         <item>8</item>
         <item>9</item>
         <item>10</item>
@@ -51,7 +51,7 @@
         <item>47</item>
         <item>48</item>
     </string-array>
-    <string-array name="entry_values_fontsizes">
+    <string-array name="entry_values_fontsizes" translatable="false">
         <item>8</item>
         <item>9</item>
         <item>10</item>
@@ -99,7 +99,7 @@
         <item>1/2 page</item>
         <item>1/4 page</item>
     </string-array>
-    <string-array name="entry_values_scrolllines">
+    <string-array name="entry_values_scrolllines" translatable="false">
         <item>1</item>
         <item>2</item>
         <item>4</item>
@@ -112,7 +112,7 @@
         <item>Traditional Chinese</item>
         <item>Korean</item>
     </string-array>
-    <string-array name="entry_values_charsetpreference">
+    <string-array name="entry_values_charsetpreference" translatable="false">
         <item>all</item>
         <item>japanese</item>
         <item>chinese</item>
