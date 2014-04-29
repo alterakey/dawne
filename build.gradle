@@ -1,0 +1,94 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    final VERSION_NAME = "0.1.11"
+    final VERSION_CODE = 12
+
+    compileSdkVersion 19
+    buildToolsVersion "19.0.3"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 10
+    }
+
+    productFlavors {
+        dev {
+            versionName VERSION_NAME + "-" + getCheckedOutGitCommitHash()
+        }
+
+        prod {
+
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('android-market.keystore')
+            storePassword System.getenv("PASSWORD")
+            keyAlias "com.gmail.altakey.dawne"
+            keyPassword System.getenv("PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            signingConfig signingConfigs.release
+            proguardFiles 'etc/proguard/android.txt', 'etc/proguard/project.txt'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+task launchDevDebug(dependsOn: 'installDevDebug') << {
+     final String cmdline = "bash ${projectDir}/gradle/start-intent.sh android.intent.action.MAIN ${project.tasks.generateDevDebugBuildConfig.appPackageName} .MainActivity"
+     Process p = cmdline.execute()
+     p.in.eachLine { l -> println l }
+     int code = p.waitFor()
+     if (code != 0) {
+     	throw new RuntimeException("Task exited with code " + code + ": " + cmdline)
+     }
+}
+
+// https://gist.github.com/JonasGroeger/7620911
+def getCheckedOutGitCommitHash() {
+    def gitFolder = "$projectDir/.git/"
+    def takeFromHash = 12
+    def head = new File(gitFolder + "HEAD").text.split(":")
+    def isCommit = head.length == 1
+
+    if(isCommit) return head[0].trim().take(takeFromHash)
+
+    def refHead = new File(gitFolder + head[1].trim())
+    refHead.text.trim().take takeFromHash
+}

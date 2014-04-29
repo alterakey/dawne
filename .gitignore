@@ -1,5 +1,8 @@
 bin
 gen
+build
+.gradle
+.DS_Store
 *~
 *.rej
 *.orig
