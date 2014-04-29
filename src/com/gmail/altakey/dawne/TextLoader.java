@@ -26,40 +26,54 @@ import android.net.Uri;
 public class TextLoader {
     private Context context;
     private Uri uri;
+    private byte[] bytes;
     private String charsetpreference;
 
-    public TextLoader(Context context, Uri uri, String charsetpreference) {
+    public TextLoader(Context context, Uri uri, byte[] bytes, String charsetpreference) {
         this.context = context;
         this.uri = uri;
+        this.bytes = bytes;
         this.charsetpreference = charsetpreference;
     }
 
     public static TextLoader create(Context context, Uri uri,
             String charsetpreference) {
-        return new TextLoader(context, uri, charsetpreference);
+        return new TextLoader(context, uri, null, charsetpreference);
+    }
+
+    public static TextLoader create(Context context, byte[] bytes,
+            String charsetpreference) {
+        return new TextLoader(context, null, bytes, charsetpreference);
     }
 
     public String read() {
         CharsetDetector det = new CharsetDetector();
-
+        
         try {
-            InputStream in = this.context.getContentResolver().openInputStream(
+            if (this.bytes == null) {
+                InputStream in = this.context.getContentResolver().openInputStream(
                     this.uri);
 
-            byte[] buffer = new byte[1024];
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-            det.begin(this.charsetpreference);
+                det.begin(this.charsetpreference);
 
-            int read;
-            while ((read = in.read(buffer, 0, buffer.length)) != -1) {
-                det.feed(buffer, read);
-                os.write(buffer, 0, read);
+                int read;
+                while ((read = in.read(buffer, 0, buffer.length)) != -1) {
+                    det.feed(buffer, read);
+                    os.write(buffer, 0, read);
+                }
+
+                det.end();
+
+                return new String(os.toByteArray(), det.getCharset());
+            } else {
+                det.begin(this.charsetpreference);
+                det.feed(this.bytes, this.bytes.length);
+                det.end();
+                return new String(this.bytes, det.getCharset());
             }
-
-            det.end();
-
-            return new String(os.toByteArray(), det.getCharset());
         } catch (java.io.IOException e) {
             return "Cannot load URI";
         }

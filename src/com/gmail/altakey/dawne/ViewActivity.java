@@ -19,6 +19,7 @@ package com.gmail.altakey.dawne;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -39,12 +40,25 @@ public class ViewActivity extends MainActivity {
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
-        final TextLoaderParam param = new TextLoaderParam();
-        param.context = getApplicationContext();
-        param.uri = getIntent().getData();
-        param.charset = pref
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final String action = intent.getAction();
+            final TextLoaderParam param = new TextLoaderParam();
+            param.context = getApplicationContext();
+            param.charset = pref
                 .getString(ConfigKey.CHARSET_PREFERENCE, "japanese");
-        new LoadTextTask().execute(param);
+            if (Intent.ACTION_VIEW.equals(action)) {
+                param.uri = intent.getData();
+            } else if (Intent.ACTION_SEND.equals(action)) {
+                final Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                if (uri != null) {
+                    param.uri = uri;
+                } else {
+                    param.text = intent.getStringExtra(Intent.EXTRA_TEXT);
+                }
+            }
+            new LoadTextTask().execute(param);
+        }
     }
 
     @Override
@@ -116,6 +130,7 @@ public class ViewActivity extends MainActivity {
     static class TextLoaderParam {
         Context context;
         Uri uri;
+        String text;
         String charset;
     }
 }
