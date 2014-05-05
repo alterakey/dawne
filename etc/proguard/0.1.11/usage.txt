@@ -1,0 +1,70 @@
+com.gmail.altakey.dawne.BuildConfig
+com.gmail.altakey.dawne.CharsetDetector:
+====    104:104:public boolean getDetected()
+====    108:108:public boolean getGuessed()
+com.gmail.altakey.dawne.ConfigKey
+com.gmail.altakey.dawne.R
+com.gmail.altakey.dawne.R$array
+com.gmail.altakey.dawne.R$attr
+com.gmail.altakey.dawne.R$drawable
+com.gmail.altakey.dawne.R$id
+com.gmail.altakey.dawne.R$layout
+com.gmail.altakey.dawne.R$menu
+com.gmail.altakey.dawne.R$string
+com.gmail.altakey.dawne.R$style
+com.gmail.altakey.dawne.R$xml
+com.gmail.altakey.dawne.TextLoader:
+====    46:46:public static com.gmail.altakey.dawne.TextLoader create(android.content.Context,byte[],java.lang.String)
+org.mozilla.intl.chardet.Big5Statistics:
+====    public float mFirstByteStdDev()
+====    public float mFirstByteMean()
+====    public float mSecondByteStdDev()
+====    public float mSecondByteMean()
+org.mozilla.intl.chardet.EUCJPStatistics:
+====    public float mFirstByteStdDev()
+====    public float mFirstByteMean()
+====    public float mSecondByteStdDev()
+====    public float mSecondByteMean()
+org.mozilla.intl.chardet.EUCKRStatistics:
+====    public float mFirstByteStdDev()
+====    public float mFirstByteMean()
+====    public float mSecondByteStdDev()
+====    public float mSecondByteMean()
+org.mozilla.intl.chardet.EUCTWStatistics:
+====    public float mFirstByteStdDev()
+====    public float mFirstByteMean()
+====    public float mSecondByteStdDev()
+====    public float mSecondByteMean()
+org.mozilla.intl.chardet.GB2312Statistics:
+====    public float mFirstByteStdDev()
+====    public float mFirstByteMean()
+====    public float mSecondByteStdDev()
+====    public float mSecondByteMean()
+org.mozilla.intl.chardet.HtmlCharsetDetector
+org.mozilla.intl.chardet.HtmlCharsetDetector$1
+org.mozilla.intl.chardet.nsDetector:
+====    public void Done()
+org.mozilla.intl.chardet.nsEUCStatistics:
+====    public abstract float mFirstByteStdDev()
+====    public abstract float mFirstByteMean()
+====    public abstract float mSecondByteStdDev()
+====    public abstract float mSecondByteMean()
+org.mozilla.intl.chardet.nsICharsetDetector
+org.mozilla.intl.chardet.nsPSMDetector:
+    public static final int ALL
+    public static final int JAPANESE
+    public static final int CHINESE
+    public static final int SIMPLIFIED_CHINESE
+    public static final int TRADITIONAL_CHINESE
+    public static final int KOREAN
+    public static final int NO_OF_LANGUAGES
+    public static final int MAX_VERIFIERS
+====    public nsPSMDetector(int,org.mozilla.intl.chardet.nsVerifier[],org.mozilla.intl.chardet.nsEUCStatistics[])
+org.mozilla.intl.chardet.nsVerifier:
+    static final byte eStart
+    static final byte eError
+    static final byte eItsMe
+    static final int eidxSft4bits
+    static final int eSftMsk4bits
+    static final int eBitSft4bits
+    static final int eUnitMsk4bits

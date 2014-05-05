@@ -1,0 +1,343 @@
+com.gmail.altakey.dawne.CharsetDetector -> a:
+    org.mozilla.intl.chardet.nsDetector detector -> a
+    java.lang.String charset -> b
+    java.lang.String charsetpreference -> c
+    boolean isAscii -> d
+    boolean detected -> e
+    com.gmail.altakey.dawne.CharsetDetector$LanguagePolicy policy -> f
+    void feed(byte[],int) -> a
+    void end() -> a
+com.gmail.altakey.dawne.CharsetDetector$BasePolicy -> b:
+    int getDetector() -> a
+    java.lang.String guess(java.lang.String[]) -> a
+com.gmail.altakey.dawne.CharsetDetector$ChinesePolicy -> c:
+    int getDetector() -> a
+com.gmail.altakey.dawne.CharsetDetector$JapanesePolicy -> d:
+    java.lang.String[] preference -> a
+    int getDetector() -> a
+    java.lang.String guess(java.lang.String[]) -> a
+com.gmail.altakey.dawne.CharsetDetector$KoreanPolicy -> e:
+    int getDetector() -> a
+com.gmail.altakey.dawne.CharsetDetector$LanguagePolicy -> f:
+    int getDetector() -> a
+    java.lang.String guess(java.lang.String[]) -> a
+com.gmail.altakey.dawne.CharsetDetector$SimplifiedChinesePolicy -> g:
+    int getDetector() -> a
+com.gmail.altakey.dawne.CharsetDetector$TraditionalChinesePolicy -> h:
+    int getDetector() -> a
+com.gmail.altakey.dawne.ConfigActivity -> com.gmail.altakey.dawne.ConfigActivity:
+    android.preference.ListPreference colortheme -> a
+    android.preference.ListPreference fontsize -> b
+    android.preference.ListPreference scrolllines -> c
+    android.preference.ListPreference charsetpreference -> d
+    void onCreate(android.os.Bundle) -> onCreate
+    void onResume() -> onResume
+    void onPause() -> onPause
+    void onSharedPreferenceChanged(android.content.SharedPreferences,java.lang.String) -> onSharedPreferenceChanged
+    void updateSummary(android.content.SharedPreferences,java.lang.String) -> a
+com.gmail.altakey.dawne.MainActivity -> com.gmail.altakey.dawne.MainActivity:
+    android.view.View rootView -> a
+    android.widget.TextView textView -> b
+    android.view.View searchBar -> e
+    android.widget.EditText searchField -> f
+    int selectionStart -> c
+    int selectionEnd -> d
+    boolean titleHidden -> g
+    java.lang.String currentCharsetpreference -> h
+    android.view.View$OnClickListener cancelButtonListener -> i
+    android.view.View$OnClickListener prevButtonListener -> j
+    android.view.View$OnClickListener nextButtonListener -> k
+    android.view.View$OnTouchListener dummyTouchListener -> l
+    android.view.View$OnKeyListener dummyKeyListener -> m
+    android.view.View$OnKeyListener searchKeyListener -> n
+    void onCreate(android.os.Bundle) -> onCreate
+    void restyle() -> c
+    void onResume() -> onResume
+    void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    void onRestoreInstanceState(android.os.Bundle) -> onRestoreInstanceState
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void hideSoftKeyboard() -> d
+    void showSearchBar(boolean) -> a
+    void searchNext() -> a
+    void searchPrevious() -> b
+com.gmail.altakey.dawne.MainActivity$1 -> i:
+    com.gmail.altakey.dawne.MainActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.gmail.altakey.dawne.MainActivity$2 -> j:
+    com.gmail.altakey.dawne.MainActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.gmail.altakey.dawne.MainActivity$3 -> k:
+    com.gmail.altakey.dawne.MainActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.gmail.altakey.dawne.MainActivity$4 -> l:
+    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+com.gmail.altakey.dawne.MainActivity$5 -> m:
+    boolean onKey(android.view.View,int,android.view.KeyEvent) -> onKey
+com.gmail.altakey.dawne.MainActivity$6 -> n:
+    com.gmail.altakey.dawne.MainActivity this$0 -> a
+    boolean onKey(android.view.View,int,android.view.KeyEvent) -> onKey
+com.gmail.altakey.dawne.TextLoader -> o:
+    android.content.Context context -> a
+    android.net.Uri uri -> b
+    java.lang.String charsetpreference -> c
+    java.lang.String read() -> a
+com.gmail.altakey.dawne.TextPager -> p:
+    android.widget.ScrollView scroller -> a
+    int divisor -> b
+com.gmail.altakey.dawne.TextStyler -> q:
+    android.view.View rootView -> a
+    android.widget.TextView textView -> b
+    int backgroundColor -> c
+    int foregroundColor -> d
+    float fontSize -> e
+    java.lang.String fontFace -> f
+com.gmail.altakey.dawne.ViewActivity -> com.gmail.altakey.dawne.ViewActivity:
+    void onCreate(android.os.Bundle) -> onCreate
+    boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
+com.gmail.altakey.dawne.ViewActivity$LoadTextTask -> r:
+    android.app.ProgressDialog progressDialog -> a
+    com.gmail.altakey.dawne.ViewActivity this$0 -> b
+    void onPreExecute() -> onPreExecute
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+com.gmail.altakey.dawne.ViewActivity$TextLoaderParam -> s:
+    android.content.Context context -> a
+    android.net.Uri uri -> b
+    java.lang.String charset -> c
+org.mozilla.intl.chardet.Big5Statistics -> t:
+    float[] mFirstByteFreq -> a
+    float mFirstByteWeight -> b
+    float[] mSecondByteFreq -> c
+    float mSecondByteWeight -> d
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.EUCJPStatistics -> u:
+    float[] mFirstByteFreq -> a
+    float mFirstByteWeight -> b
+    float[] mSecondByteFreq -> c
+    float mSecondByteWeight -> d
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.EUCKRStatistics -> v:
+    float[] mFirstByteFreq -> a
+    float mFirstByteWeight -> b
+    float[] mSecondByteFreq -> c
+    float mSecondByteWeight -> d
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.EUCTWStatistics -> w:
+    float[] mFirstByteFreq -> a
+    float mFirstByteWeight -> b
+    float[] mSecondByteFreq -> c
+    float mSecondByteWeight -> d
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.GB2312Statistics -> x:
+    float[] mFirstByteFreq -> a
+    float mFirstByteWeight -> b
+    float[] mSecondByteFreq -> c
+    float mSecondByteWeight -> d
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.nsBIG5Verifier -> y:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsCP1252Verifier -> z:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsDetector -> A:
+    org.mozilla.intl.chardet.nsICharsetDetectionObserver mObserver -> a
+    void Report(java.lang.String) -> a
+org.mozilla.intl.chardet.nsEUCJPVerifier -> B:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsEUCKRVerifier -> C:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsEUCSampler -> D:
+    int mTotal -> a
+    int mThreshold -> b
+    int mState -> c
+    int[] mFirstByteCnt -> d
+    int[] mSecondByteCnt -> e
+    float[] mFirstByteFreq -> f
+    float[] mSecondByteFreq -> g
+    void Reset() -> a
+    float GetScore(float[],float[]) -> a
+org.mozilla.intl.chardet.nsEUCStatistics -> E:
+    float[] mFirstByteFreq() -> a
+    float mFirstByteWeight() -> b
+    float[] mSecondByteFreq() -> c
+    float mSecondByteWeight() -> d
+org.mozilla.intl.chardet.nsEUCTWVerifier -> F:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsGB18030Verifier -> G:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsGB2312Verifier -> H:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsHZVerifier -> I:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsICharsetDetectionObserver -> J:
+    com.gmail.altakey.dawne.CharsetDetector this$0 -> a
+org.mozilla.intl.chardet.nsISO2022CNVerifier -> K:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsISO2022JPVerifier -> L:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsISO2022KRVerifier -> M:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsPSMDetector -> N:
+    org.mozilla.intl.chardet.nsVerifier[] mVerifier -> b
+    org.mozilla.intl.chardet.nsEUCStatistics[] mStatisticsData -> a
+    org.mozilla.intl.chardet.nsEUCSampler mSampler -> h
+    byte[] mState -> c
+    int[] mItemIdx -> d
+    int mItems -> e
+    int mClassItems -> i
+    boolean mDone -> f
+    boolean mRunSampler -> g
+    boolean mClassRunSampler -> j
+    void Reset() -> a
+    void initVerifiers(int) -> a
+    void Report(java.lang.String) -> a
+    void Sample(byte[],int,boolean) -> a
+org.mozilla.intl.chardet.nsSJISVerifier -> O:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsUCS2BEVerifier -> P:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsUCS2LEVerifier -> Q:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsUTF8Verifier -> R:
+    int[] cclass -> a
+    int[] states -> b
+    int stFactor -> c
+    java.lang.String charset -> d
+    int[] cclass() -> a
+    int[] states() -> b
+    int stFactor() -> c
+    java.lang.String charset() -> d
+    boolean isUCS2() -> e
+org.mozilla.intl.chardet.nsVerifier -> S:
+    java.lang.String charset() -> d
+    int stFactor() -> c
+    int[] cclass() -> a
+    int[] states() -> b
+    boolean isUCS2() -> e

@@ -1,0 +1,49 @@
+com.gmail.altakey.dawne.ConfigActivity
+com.gmail.altakey.dawne.ConfigActivity: ConfigActivity()
+com.gmail.altakey.dawne.MainActivity
+com.gmail.altakey.dawne.MainActivity: MainActivity()
+com.gmail.altakey.dawne.R$array: int entries_charsetpreference
+com.gmail.altakey.dawne.R$array: int entries_colorthemes
+com.gmail.altakey.dawne.R$array: int entries_fontsizes
+com.gmail.altakey.dawne.R$array: int entries_scrolllines
+com.gmail.altakey.dawne.R$array: int entry_values_charsetpreference
+com.gmail.altakey.dawne.R$array: int entry_values_colorthemes
+com.gmail.altakey.dawne.R$array: int entry_values_fontsizes
+com.gmail.altakey.dawne.R$array: int entry_values_scrolllines
+com.gmail.altakey.dawne.R$drawable: int ab_background
+com.gmail.altakey.dawne.R$drawable: int action_search
+com.gmail.altakey.dawne.R$drawable: int cancel
+com.gmail.altakey.dawne.R$drawable: int icon
+com.gmail.altakey.dawne.R$drawable: int next
+com.gmail.altakey.dawne.R$drawable: int previous
+com.gmail.altakey.dawne.R$id: int cancel
+com.gmail.altakey.dawne.R$id: int divider1
+com.gmail.altakey.dawne.R$id: int divider2
+com.gmail.altakey.dawne.R$id: int edittext
+com.gmail.altakey.dawne.R$id: int menu_main_config
+com.gmail.altakey.dawne.R$id: int menu_main_search
+com.gmail.altakey.dawne.R$id: int next
+com.gmail.altakey.dawne.R$id: int previous
+com.gmail.altakey.dawne.R$id: int search
+com.gmail.altakey.dawne.R$id: int textview
+com.gmail.altakey.dawne.R$id: int view
+com.gmail.altakey.dawne.R$layout: int main
+com.gmail.altakey.dawne.R$menu: int main
+com.gmail.altakey.dawne.R$string: int app_name
+com.gmail.altakey.dawne.R$string: int app_version
+com.gmail.altakey.dawne.R$string: int config_title_charsetpreference
+com.gmail.altakey.dawne.R$string: int config_title_colortheme
+com.gmail.altakey.dawne.R$string: int config_title_fontsize
+com.gmail.altakey.dawne.R$string: int config_title_scrollbyvolumekeys
+com.gmail.altakey.dawne.R$string: int config_title_scrolllines
+com.gmail.altakey.dawne.R$string: int config_title_showtitle
+com.gmail.altakey.dawne.R$string: int config_title_usemonospacefonts
+com.gmail.altakey.dawne.R$string: int config_title_version
+com.gmail.altakey.dawne.R$string: int main_inst
+com.gmail.altakey.dawne.R$string: int menu_title_main_preferences
+com.gmail.altakey.dawne.R$string: int menu_title_main_search
+com.gmail.altakey.dawne.R$style: int MyActionBar
+com.gmail.altakey.dawne.R$style: int MyTheme
+com.gmail.altakey.dawne.R$xml: int config
+com.gmail.altakey.dawne.ViewActivity
+com.gmail.altakey.dawne.ViewActivity: ViewActivity()

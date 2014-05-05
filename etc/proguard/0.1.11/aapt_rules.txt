@@ -1,0 +1,9 @@
+# view AndroidManifest.xml #generated:30
+-keep class com.gmail.altakey.dawne.ConfigActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:8
+-keep class com.gmail.altakey.dawne.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:15
+-keep class com.gmail.altakey.dawne.ViewActivity { <init>(...); }
+
