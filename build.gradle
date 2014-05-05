@@ -50,7 +50,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('android-market.keystore')
+            storeFile file('dawne.keystore')
             storePassword System.getenv("PASSWORD")
             keyAlias "com.gmail.altakey.dawne"
             keyPassword System.getenv("PASSWORD")
